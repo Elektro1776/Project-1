@@ -1,5 +1,5 @@
 # Project-1
-
+# Requirements
 *Must use at least two APIs
 * Must use AJAX to pull data
 * Must utilize at least one new library or technology that we haven’t discussed
@@ -10,9 +10,10 @@
 * Must use Bootstrap or Alternative CSS Framework
 * Must be Deployed (Github Pages)
 * Must have User Input Validation
+**
 
 
-#Project 1 Nice To Haves:#
+#Project 1 Nice To Haves:
 
 * Utilize Firebase for Persistent Data Storage (Consider this basically a requirement).
 * Mobile Responsive
