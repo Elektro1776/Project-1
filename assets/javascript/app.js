@@ -78,14 +78,16 @@ $(document).ready(function() {
   // };
   // firebase.initializeApp(config);
   // var database = firebase.database();
-  // (function() {
-  //   $.ajax({
-  //     method: 'GET',
-  //     url: `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initAutocomplete`
-  //   }).done(function(err, data) {
-  //     console.log(' DOES THIS FINISH ????', data, err);
-  //   })
-  // })();
+    (function() {
+    $.ajax({
+      url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=39.739236,-104.990251&radius=1609.34&type=restaurant&keyword=brewery&pagetoken&key=AIzaSyCwOFrBMJrkRF4Q7MJ-ysYwEWKewhcJlyk`,
+       type: 'GET',
+       crossDomain: true,
+       success: function(response) {
+         console.log(' WHAT IS OUR RESPONSE DATA', response.results);
+       },
+    })
+  })();
 
 
 
