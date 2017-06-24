@@ -8,23 +8,23 @@
 
   <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 
-<!--     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script> -->
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-  <script src="./assets/javascript/javascript_style.js"></script>
-  <script type="text/javascript" src="./assets/javascript/firebase.js"></script>
-
-   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/googleMapStyle.css">
+  <!-- Compiled and minified CSS -->
 
+
+  <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
   <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 
-  <link rel="stylesheet" type= "text/css" href="./assets/css/style.css">
+  <!-- End Thirdparty libs -->
+  <script src="./assets/javascript/javascript_style.js"></script>
+  <script src="./assets/javascript/app.js" charset="utf-8"></script>
+  <script src="./assets/javascript/firebase.js" charset="utf-8"></script>
 
 
 </head>
@@ -36,11 +36,9 @@
  <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo center">PINT PILOT</a>
+      <a href="#!" class="brand-logo center">BEST HOPS</a>
+
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-      <ul class="left hide-on-med-and-down">
-        <li class= "active"><a href="sass.html">Find Another Beer!</a></li>
-      </ul>
 
         <ul class="side-nav" id="mobile-demo">
         <li><a href="sass.html">Find Another Beer!</a></li>
@@ -53,39 +51,42 @@
   </div>
 
    <div class="parallax-container">
-    <div class="parallax"><img src="./assets/images/trainmap2.png"></div>
+    <div class="parallax"><img src="./assets/images/beerbubbles.jpg"></div>
   </div>
   <div class="section white">
     <div class="row container">
       <h2 class="header">Beer Navigator</h2>
 
-            <p>Animated search form:</p>
 
             <form>
-              <input type="text" name="search" placeholder="Search..">
-            </form>
 
-            <p>Animated search form:</p>
+          <!--   <p>Animated search form:</p> -->
 
-            <form>
-              <input type="text" name="search" placeholder="Search..">
-            </form>
+              <input type="text" name="Beer Type" id = "beerSearch" placeholder="Beer Type">
+              <br>
+        <!--     <p>Animated search form:</p> -->
 
-            <p>Animated search form:</p>
+            
+              <input type="text" name="location" id = "locationSearch" placeholder="Where Are You?">
+              <br>
 
-            <form>
-              <input type="text" name="search" placeholder="Search..">
-            </form>
+         <!--    <p>Animated search form:</p> -->
 
-            <button class="btn waves-effect waves-light" type="submit" name="action">Take off!
+            
+              <input type="text" name="Brewery Name" id = "breweryName" placeholder="Brewery Name?">
+
+            <br>
+
+            <button class="btn waves-effect waves-light" type="submit" id="submitButton" name="action">Take off!
             <i class="material-icons right"></i>
             </button>
+            </form>
 
 
     </div>
   </div>
   <div class="parallax-container">
-    <div class="parallax"><img src="./assets/images/trainmap.gif"></div>
+    <div class="parallax"><img src="./assets/images/beerbubbles.jpg"></div>
   </div>
 
 
