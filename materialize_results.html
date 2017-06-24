@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
+
   <meta charset="UTF-8">
   <title>Materialize</title>
 
@@ -8,22 +9,23 @@
 
   <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 
-<!--     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script> -->
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-  <script src="./assets/javascript/javascript_style.js"></script>
-
-   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/googleMapStyle.css">
+  <!-- Compiled and minified CSS -->
 
+
+  <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
   <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 
-  <link rel="stylesheet" type= "text/css" href="assets/css/style.css"> 
-
+  <!-- End Thirdparty libs -->
+  <script src="./assets/javascript/javascript_style.js"></script>
+  <script src="./assets/javascript/app.js" charset="utf-8"></script>
+  <script src="./assets/javascript/firebase.js" charset="utf-8"></script>
   <!-- fucking shit -->
 
 
@@ -47,7 +49,10 @@
   </div>
 
    <div class="parallax-container">
-    <div class="parallax"><img src="./assets/images/trainmap2.png"></div>
+     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+     <div id="map"></div>
+    <div class="parallax">
+    </div>
   </div>
   <div class="section white">
     <div class="row container">
@@ -102,6 +107,10 @@
         </footer>
 
 
-
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwOFrBMJrkRF4Q7MJ-ysYwEWKewhcJlyk&libraries=places&callback=initAutocomplete"
+          async defer
+        >
+        </script>
 </body>
 </html>
