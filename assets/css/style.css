@@ -4,9 +4,15 @@ body {
     font-family: sanchez;
 }
 
+h2 {
+
+    text-align: center;
+}
+
+
 
 input[type=text] {
-    width: 400px;
+    width: 500px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -20,15 +26,25 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    width: 100%;
+    width: 80%;
 }
 
 .page-footer {
 
-    background-color: #2c90f9;
+    background-color: #ffb600;
 }
 
 nav {
-    background-color: #2c90f9;
+    background-color: #ffb600;
 
+}
+
+.parallax-container {
+    height: 100px;
+
+}
+
+form {
+
+   text-align: center;
 }
