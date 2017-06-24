@@ -65,19 +65,8 @@ function initAutocomplete() {
   });
 }
 $(document).ready(function() {
-  // Initialize Firebase
   var apiKey = 'AIzaSyCwOFrBMJrkRF4Q7MJ-ysYwEWKewhcJlyk';
-  console.log(' CAN WE ACCESS STUFF ABOVE READY ?', initAutocomplete);
-  // var config = {
-  //   apiKey: "AIzaSyBgKBTuuGt03OVa2v5AIESL9IcvkZn5t5Q",
-  //   authDomain: "project-1-bbd03.firebaseapp.com",
-  //   databaseURL: "https://project-1-bbd03.firebaseio.com",
-  //   projectId: "project-1-bbd03",
-  //   storageBucket: "",
-  //   messagingSenderId: "581793472401"
-  // };
-  // firebase.initializeApp(config);
-  // var database = firebase.database();
+  
     (function() {
     $.ajax({
       url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=39.739236,-104.990251&radius=1609.34&type=restaurant&keyword=brewery&pagetoken&key=AIzaSyCwOFrBMJrkRF4Q7MJ-ysYwEWKewhcJlyk`,
