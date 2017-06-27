@@ -35,9 +35,11 @@ Root
   var database = firebase.database();
   var userRef = database.ref("users");
 
+
   // variable for today's date (to compare user's bday)
-  var today = new Date()
-  today = moment(today).format('YYYY-MM-DD');
+  var today = new Date();
+  today = moment(today);
+
 
 
 
@@ -47,9 +49,10 @@ console.log(today)
   function setUserData(userInputData){
     console.log(userInputData)
     var user = userRef.push()
+    localStorage.setItem("userID ", user.key)
     user.set({
       name: userInputData.userName, //key: value
-      birthday: userInputData.buserBDay, //prop = field will need to reset
+      birthday: userInputData.userBDay, //prop = field will need to reset
       email: userInputData.userEmail,
       recentSearches: null,
     });
@@ -72,27 +75,29 @@ console.log(today)
 
     })
 
- setUserData(userInput);
 
+  //Checks age of user
+    var userBirthday = moment(userInput.userBDay, 'MM/DD/YYYY');
+    var todaysDate = moment(today, 'MM/DD/YYYY');
+    var yearsOld = todaysDate.diff(userBirthday, 'years');
+    console.log(todaysDate);
+    console.log(userBirthday);
+    console.log(yearsOld);
 
+  // Age verification 
+    if (yearsOld < 21){
+      alert("Sorry Charlie")
+      // window.location.replace("https://www.google.com/")
 
+    } else if (true){
+      // Kicks user data into firebase
+      setUserData(userInput);
+      // window.location.replace("https://www.google.com/");
+    } else{};
 
-   test = ((2017/06/26)-(1989/10/17))
-   console.log(test)
 
   });
 
-    // if ((today - userBDay) < 21) {
-    //   // If true, take user to a new "Sorry Charlie" page
-    
-    // } else if(true) {
-    //     user.name.push(userName.val())
-    //     user.birthday.push(userBDay.val())
-    //     user.email.push(userEmail.val())
-    
-    // } else {
-
-    // };
     
 });
       
