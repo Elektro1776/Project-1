@@ -57,6 +57,7 @@ console.log(today)
       recentSearches: null,
     });
   }
+
   // setUserData("Charlie", "07/04/1996","charlie@gmail.com")
 
 
@@ -101,8 +102,5 @@ console.log(today)
     
 });
       
-
-
-
 
 
