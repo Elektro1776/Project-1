@@ -3,13 +3,14 @@ let MAPS = (spec, mySecrets) => {
   let that, map, infowindow;
    mySecrets = mySecrets || {}
 
-  function createNewMap(lat, long) {
+  function createDefaultMap(lat, long) {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 39.739236, lng: -104.990251},
       zoom: 13,
       mapTypeId: 'roadmap'
     });
   }
+
   function createMarker(place) {
     console.log(' WHAT IS THE PLACE???', place.geometry);
     var placeLoc = place.geometry.location;
@@ -23,41 +24,7 @@ let MAPS = (spec, mySecrets) => {
           infowindow.open(map, this);
         });
   }
-  function createMapMarkers() {
-  }
-  // function googleTextSearch() {
-  //   var service;
-  //   var infowindow;
-  //
-  // function initialize() {
-  //   var location = new google.maps.LatLng(39.739236,-104.990251);
-  //
-  //   map = new google.maps.Map(document.getElementById('map'), {
-  //       center: location,
-  //       zoom: 12
-  //     });
-  //
-  //   var request = {
-  //     location: location,
-  //     radius: '3600',
-  //     query: 'brewery'
-  //   };
-  //
-  //   service = new google.maps.places.PlacesService(map);
-  //   service.textSearch(request, callback);
-  // }
-  //
-  // function callback(results, status) {
-  //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-  //     for (var i = 0; i < results.length; i++) {
-  //       var place = results[i];
-  //       createMarker(results[i]);
-  //     }
-  //   }
-  // }
-  // initialize();
-  //
-  // }
+
   function radar() {
        infoWindow = new google.maps.InfoWindow();
        service = new google.maps.places.PlacesService(map);
@@ -112,10 +79,44 @@ let MAPS = (spec, mySecrets) => {
        });
   }
   that = {};
-  that.createNewMap = createNewMap;
-  that.createMapMarkers = createMapMarkers;
-  that.textSearch = googleTextSearch;
+  that.createDefaultMap = createDefaultMap;
+  // that.createMapMarkers = createMapMarkers;
+  // that.textSearch = googleTextSearch;
   that.radar = radar;
 
   return that;
 }
+
+// function googleTextSearch() {
+//   var service;
+//   var infowindow;
+//
+// function initialize() {
+//   var location = new google.maps.LatLng(39.739236,-104.990251);
+//
+//   map = new google.maps.Map(document.getElementById('map'), {
+//       center: location,
+//       zoom: 12
+//     });
+//
+//   var request = {
+//     location: location,
+//     radius: '3600',
+//     query: 'brewery'
+//   };
+//
+//   service = new google.maps.places.PlacesService(map);
+//   service.textSearch(request, callback);
+// }
+//
+// function callback(results, status) {
+//   if (status == google.maps.places.PlacesServiceStatus.OK) {
+//     for (var i = 0; i < results.length; i++) {
+//       var place = results[i];
+//       createMarker(results[i]);
+//     }
+//   }
+// }
+// initialize();
+//
+// }
