@@ -45,11 +45,11 @@ $(document).ready(function() {
   }
   function findBeer() {
 
-    initialMap.findBreweries(foundBreweries);
     let searchBeer = BEER();
     let $beerResults = searchBeer.searchUntap();
     $beerResults.done(function(response) {
       console.log(' WHAT IS OUR SEARCH BEER', response, allResults);
+      initialMap.findBreweries(response);
 
     })
   }

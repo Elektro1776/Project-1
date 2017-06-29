@@ -24,7 +24,7 @@ let MAPS = (spec, mySecrets) => {
           infowindow.open(map, this);
         });
   }
-  function findBreweries(cb) {
+  function findBreweries(untappdResults) {
     infoWindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
 
@@ -50,11 +50,10 @@ let MAPS = (spec, mySecrets) => {
       for (var i = 0, result; result = results[i]; i++) {
         service.getDetails(result, function(finalResult, status) {
           // console.log('what are the details?????', result);
-          resultDetails.push(finalResult);
+          console.log('WHAT ARE THE untappdResults', untappdResults);
         })
         addMarker(result);
       }
-        cb(results, service);
     }
 
   }
