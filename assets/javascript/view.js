@@ -1,6 +1,20 @@
 let searchParams = {}
 $(document).ready(function() {
+<<<<<<< HEAD
   ('.parallax').parallax();
+=======
+  $('.parallax').parallax();
+
+	$('.collapsible').collapsible();
+
+	$(".button-collapse").sideNav();
+
+	$('.modal').modal();
+
+	 $('#modal1').modal('close');
+
+	 $(".button-collapse").sideNav();
+>>>>>>> origin/master
 
   $('.collapsible').collapsible();
 

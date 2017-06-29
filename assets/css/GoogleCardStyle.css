@@ -1,0 +1,67 @@
+.imageStyle {
+
+    display: inline-block;
+    margin: 10px;
+    height: 200px;
+    width: 200px;
+
+}
+
+.cardContainer {
+
+    display: inline-flex;
+
+}
+
+h3 {
+
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 0px;
+
+}
+
+h4 {
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+
+.modal.modal-fixed-footer.open {
+
+	height: calc(100% - 130px);
+	width: calc(100% - 600px);
+	text-align: center;
+	padding-top: 40px;
+
+}
+
+#btnHop {
+
+	margin-top: 15px;
+}
+
+.btn-flat{
+	float: right;
+}
+.distanceCard {
+
+	font-size: 15px;
+	display: inline-block;
+	float: right;
+
+}
+
+#randomBrew {
+
+	border-color: #4CAF50;
+	border-size: 2px;
+	border-style: solid;
+	text-align: center;
+	padding: 10px 0 10px 0;
+	width: 20%;
+	float: right;
+}
+
