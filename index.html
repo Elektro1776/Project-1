@@ -1,101 +1,114 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Places Searchbox</title>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #description {
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-      }
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <title>Materialize</title>
 
-      #infowindow-content .title {
-        font-weight: bold;
-      }
+<!-- Brian's next steps replace this html with firebase jazz. Start kicking user input into firebase. -->
 
-      #infowindow-content {
-        display: none;
-      }
+  <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 
-      #map #infowindow-content {
-        display: inline;
-      }
 
-      .pac-card {
-        margin: 10px 10px 0 0;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        background-color: #fff;
-        font-family: Roboto;
-      }
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/googleMapStyle.css">
+  <!-- Compiled and minified CSS -->
 
-      #pac-container {
-        padding-bottom: 12px;
-        margin-right: 12px;
-      }
 
-      .pac-controls {
-        display: inline-block;
-        padding: 5px 11px;
-      }
+  <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.18.1/moment.min.js"></script>
 
-      .pac-controls label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-      }
+  <!-- End Thirdparty libs -->
+  <script src="./assets/javascript/javascript_style.js"></script>
+  <script src="./assets/javascript/app.js" charset="utf-8"></script>
+  <script src="./assets/javascript/firebase.js" charset="utf-8"></script>
 
-      #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 400px;
-      }
 
-      #pac-input:focus {
-        border-color: #4d90fe;
-      }
+</head>
 
-      #title {
-        color: #fff;
-        background-color: #4d90fe;
-        font-size: 25px;
-        font-weight: 500;
-        padding: 6px 12px;
-      }
-      #target {
-        width: 345px;
-      }
-    </style>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<body>
 
-  </head>
-  <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-    <div id="map"></div>
-    <script src="./assets/javascript/app.js" charset="utf-8"></script>
+<!-- <div> this is a comment</div> -->
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwOFrBMJrkRF4Q7MJ-ysYwEWKewhcJlyk&libraries=places&callback=initAutocomplete"
-         async defer></script>
-  </body>
+ <div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">BEST HOPS</a>
+
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+        <ul class="side-nav" id="mobile-demo">
+        <li><a href="sass.html">Find Another Beer!</a></li>
+
+      </ul>
+    </div>
+
+    </div>
+  </nav>
+  </div>
+
+   <div class="parallax-container">
+    <div class="parallax"><img src="./assets/images/beerbubbles.jpg"></div>
+  </div>
+  <div class="section white">
+    <div class="row container">
+      <h2 class="header">Welcome To Beer Navigator!</h2>
+
+
+            <form id="FBcapture">
+
+          <!--   <p>Animated search form:</p> -->
+
+              <input type="text" name="Beer Type" id = "userName" placeholder="What's Your Name?">
+              <br>
+        <!--     <p>Animated search form:</p> -->
+
+            
+              <input type="text" name="location" id = "userBDay" placeholder="When Were you Born [MM/DD/YYYY]?">
+              <br>
+
+         <!--    <p>Animated search form:</p> -->
+
+            
+              <input type="text" name="Brewery Name" id = "userEmail" placeholder="What's Your Email Address?">
+
+            <br>
+
+            <button class="btn waves-effect waves-light" type="submit" id="submitButton" name="action" >Take off!
+
+            <i class="material-icons right"></i>
+
+            </button>
+            </form>
+
+
+    </div>
+  </div>
+  <div class="parallax-container">
+    <div class="parallax"><img src="./assets/images/beerbubbles.jpg"></div>
+  </div>
+
+
+
+          <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+          </div>
+          </div>
+        </footer>
+
+
+
+</body>
 </html>
