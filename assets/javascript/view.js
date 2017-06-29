@@ -1,8 +1,6 @@
 let searchParams = {}
 $(document).ready(function() {
-<<<<<<< HEAD
-  ('.parallax').parallax();
-=======
+
   $('.parallax').parallax();
 
 	$('.collapsible').collapsible();
@@ -14,12 +12,8 @@ $(document).ready(function() {
 	 $('#modal1').modal('close');
 
 	 $(".button-collapse").sideNav();
->>>>>>> origin/master
 
-  $('.collapsible').collapsible();
 
-  $(".button-collapse").sideNav();
-  
   $('form').submit(function(e) {
     e.preventDefault();
       let $inputs = $('#beerForm :input:not(:button)');
