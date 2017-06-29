@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
   <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/googleMapStyle.css">
+  <link rel="stylesheet" href="./assets/css/GoogleCardStyle.css">
   <!-- Compiled and minified CSS -->
 
 
@@ -23,8 +24,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 
   <!-- End Thirdparty libs -->
-
-  <!-- fucking shit -->
+  <script src="./assets/javascript/javascript_style.js"></script>
+  <script src="./assets/javascript/app.js" charset="utf-8"></script>
+  <script src="./assets/javascript/firebase.js" charset="utf-8"></script>
 
 
 </head>
@@ -34,11 +36,26 @@
  <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo center">PINT PILOT</a>
 
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#">Find Another Beer!</a></li>
-      </ul>
+      <ul class="right hide-on-med-and-down">
+      <li id= "btnHop"><a class="waves-effect waves-light btn" href="#modal1">Bar Hop!</a></li> 
+      </ul> 
+
+
+    <div class="brand-logo center">
+
+    <p class="searchTitle"> BEST HOPS </p>
+
+    </div>
+
+    <br>
+
+    <div class="brand-logo center">
+    <img src="./assets/images/justhops.png" class= "bestHops">
+
+    </div>
+
+ 
 
       </div>
 
@@ -46,63 +63,149 @@
   </nav>
   </div>
 
-   <div class="parallax-container">
+
+   <div class="parallax-container" id = "mapContainer">
+
      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
      <div id="map"></div>
     <div class="parallax">
     </div>
   </div>
+
+
+
   <div class="section white">
     <div class="row container">
-      <h2 class="header">Parallax</h2>
-      <p class="grey-text text-darken-3 lighten-3">
-      Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
 
-          <ul class="collapsible" data-collapsible="accordion">
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+
+      <h3 id= "breweryResult">Troegs Brewery</h3>
+
+      <h5 id= "googleRating">Google Rating ***</h5>
+      <p id = "distanceFromMe"> .05 Miles Away </p>
+
+      <img src= "./assets/images/nugget.jpg" class = "imageStyle">
+
+
+    <div class="modal-footer">
+
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Got it!</a>
+    </div>
+  </div>
+
+
+<!-- THIS CARD IS FOR UNTAPPED SEARCH -->
+
+  <ul class="collapsible" data-collapsible="accordion">
     <li>
-      <div class="collapsible-header">First</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+      <div class="collapsible-header">
+
+      <p id = "distanceFromMe" class= "distanceCard"> .05 Miles Away </p>
+
+        <div class= "cardContainer">
+          <img src= "./assets/images/nugget.jpg" class = "imageStyle">
+          <div>
+
+
+          <h3 id= "breweryResult">Troegs Brewery</h3>
+          <h4 id= "beerResult"> East Coast IPA </h4>
+
+          <h5 id= "googleRating">Google Rating ***</h5>
+          <h5 id= "unTapRating">Untapped Rating ***</h5>
+
+
+          </div>
+        </div>
+      </div>
+
+        <div class="collapsible-body">
+
+        <span>
+
+          <div id= "IBU"> IBU: 6% </div>
+          <div id= "ABV"> ABV: 50</div>
+
+          <br>
+
+          <div id= beerDescription> Description: BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER. 
+          </div>
+          
+        </span>
+
+      </div>
+
     </li>
+    </ul>
+
+<!-- THIS CARD IS FOR GOOGLE SEARCH -->
+
+  <ul class="collapsible" data-collapsible="accordion">
     <li>
-      <div class="collapsible-header">Second</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+      <div class="collapsible-header">
+
+      <p id = "distanceFromMe" class= "distanceCard"> .05 Miles Away </p>
+
+        <div class= "cardContainer">
+          <img src= "./assets/images/nugget.jpg" class = "imageStyle">
+          <div>
+
+
+          <h3>Troegs Brewery</h3>
+       
+          <h5>Google Rating ***</h5>
+
+
+          </div>
+        </div>
+      </div>
+
+        <div class="collapsible-body">
+
+        <span>
+
+          Business Hours: XXXX
+          <br>
+          $$$ LEVEL
+          
+
+
+        </span>
+
+      </div>
+
     </li>
-    <li>
-      <div class="collapsible-header">Third</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-        <li>
-      <div class="collapsible-header">Fourth</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-        <li>
-      <div class="collapsible-header">Fifth</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
+
+
   </ul>
 
 
-
     </div>
-  </div>
+    </div>
+
+
   <div class="parallax-container">
-    <div class="parallax"><img src="./assets/images/trainmap.gif"></div>
-  </div>
+    <div class="parallax"><img src="./assets/images/dribbble.png"></div>
 
 
-            <footer class="page-footer">
+
+         <footer class="page-footer">
           <div class="container">
             <div class="row">
 
           <div class="footer-copyright">
             <div class="container">
-            © 2014 Copyright Text
+            © 2017 Copyright Best Hops
             <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>
           </div>
-          </div>
-          </div>
+        </div>
+        </div>
+
         </footer>
+
 
         
         <!-- <script src="./assets/javascript/maps.js" charset="utf-8"></script> -->

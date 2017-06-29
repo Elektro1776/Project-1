@@ -7,5 +7,12 @@
 
 	$(".button-collapse").sideNav();
 
+	$('.modal').modal();
+
+	 $('#modal1').modal('close');
+
+	 $(".button-collapse").sideNav();
+
+
 
 });
