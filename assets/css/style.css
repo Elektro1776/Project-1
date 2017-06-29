@@ -9,6 +9,11 @@ h2 {
     text-align: center;
 }
 
+.header {
+
+    text-align: center;
+}
+
 .searchTitle {
 
     font-size: 45px;
@@ -47,6 +52,11 @@ input[type=text]:focus {
 .page-footer {
 
     background-color: #d88228;
+}
+
+.page-footer .footer-copyright {
+
+    text-align: center;
 }
 
 nav {
