@@ -24,36 +24,41 @@ let MAPS = (spec, mySecrets) => {
           infowindow.open(map, this);
         });
   }
+  function findBreweries(cb) {
+    infoWindow = new google.maps.InfoWindow();
+    service = new google.maps.places.PlacesService(map);
 
-  function radar() {
-       infoWindow = new google.maps.InfoWindow();
-       service = new google.maps.places.PlacesService(map);
+    // The idle event is a debounced event, so we can query & listen without
+    // throwing too many requests at the server.
+    map.addListener('idle', function() {
+      performSearch();
+    });
+    function performSearch() {
+      var request = {
+        bounds: map.getBounds(),
+        keyword: 'brewery'
+      };
+      service.radarSearch(request, callbackPlacesResults);
+    }
 
-       // The idle event is a debounced event, so we can query & listen without
-       // throwing too many requests at the server.
-       map.addListener('idle', performSearch);
-     }
+    function callbackPlacesResults(results, status) {
+      let resultDetails = [];
+      if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        console.error(status);
+        return;
+      }
+      for (var i = 0, result; result = results[i]; i++) {
+        service.getDetails(result, function(finalResult, status) {
+          // console.log('what are the details?????', result);
+          resultDetails.push(finalResult);
+        })
+        addMarker(result);
+      }
+        cb(results, service);
+    }
 
-     function performSearch() {
-       var request = {
-         bounds: map.getBounds(),
-         keyword: 'brewery'
-       };
-       service.radarSearch(request, callback);
-     }
+  }
 
-     function callback(results, status) {
-       if (status !== google.maps.places.PlacesServiceStatus.OK) {
-         console.error(status);
-         return;
-       }
-       for (var i = 0, result; result = results[i]; i++) {
-          service.getDetails(result, function(result, status) {
-            console.log('what are the details?????', result);
-          })
-         addMarker(result);
-       }
-     }
 
      function addMarker(place) {
        var marker = new google.maps.Marker({
@@ -82,7 +87,7 @@ let MAPS = (spec, mySecrets) => {
   that.createDefaultMap = createDefaultMap;
   // that.createMapMarkers = createMapMarkers;
   // that.textSearch = googleTextSearch;
-  that.radar = radar;
+  that.findBreweries = findBreweries;
 
   return that;
 }
