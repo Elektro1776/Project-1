@@ -1,78 +1,122 @@
 
 let MAPS = (spec, mySecrets) => {
-  let that, map;
+  let that, map, infowindow;
    mySecrets = mySecrets || {}
 
-  function createNewMap(lat, long) {
+  function createDefaultMap(lat, long) {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 39.739236, lng: -104.990251},
       zoom: 13,
       mapTypeId: 'roadmap'
     });
   }
-  function createMapMarkers() {
-    // Create the search box and link it to the UI element.
-    var input = document.getElementById('pac-input');
-    var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-    // Bias the SearchBox results towards current map's viewport.
-    map.addListener('bounds_changed', function() {
-      searchBox.setBounds(map.getBounds());
-    });
+  function createMarker(place) {
+    console.log(' WHAT IS THE PLACE???', place.geometry);
+    var placeLoc = place.geometry.location;
+    infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+         map: map,
+         position: placeLoc
+       });
+       google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+  }
 
-    var markers = [];
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-    searchBox.addListener('places_changed', function() {
-      var places = searchBox.getPlaces();
+  function radar() {
+       infoWindow = new google.maps.InfoWindow();
+       service = new google.maps.places.PlacesService(map);
 
-      if (places.length == 0) {
-        return;
-      }
+       // The idle event is a debounced event, so we can query & listen without
+       // throwing too many requests at the server.
+       map.addListener('idle', performSearch);
+     }
 
-      // Clear out the old markers.
-      markers.forEach(function(marker) {
-        marker.setMap(null);
-      });
-      markers = [];
+     function performSearch() {
+       var request = {
+         bounds: map.getBounds(),
+         keyword: 'brewery'
+       };
+       service.radarSearch(request, callback);
+     }
 
-      // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
-      places.forEach(function(place) {
-        if (!place.geometry) {
-          console.log("Returned place contains no geometry");
-          return;
-        }
-        var icon = {
-          url: place.icon,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25)
-        };
+     function callback(results, status) {
+       if (status !== google.maps.places.PlacesServiceStatus.OK) {
+         console.error(status);
+         return;
+       }
+       for (var i = 0, result; result = results[i]; i++) {
+          service.getDetails(result, function(result, status) {
+            console.log('what are the details?????', result);
+          })
+         addMarker(result);
+       }
+     }
 
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
-          map: map,
-          icon: icon,
-          title: place.name,
-          position: place.geometry.location
-        }));
+     function addMarker(place) {
+       var marker = new google.maps.Marker({
+         map: map,
+         position: place.geometry.location,
+         icon: {
+           url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
+           anchor: new google.maps.Point(10, 10),
+           scaledSize: new google.maps.Size(10, 17)
+         }
+       });
 
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-      map.fitBounds(bounds);
-    });
+       google.maps.event.addListener(marker, 'click', function() {
+         service.getDetails(place, function(result, status) {
+           if (status !== google.maps.places.PlacesServiceStatus.OK) {
+             console.error(status);
+             return;
+           }
+          //  console.log(" WHAT IS OUR RESULT ON CLICK ???", result);
+           infoWindow.setContent(result.name);
+           infoWindow.open(map, marker);
+         });
+       });
   }
   that = {};
-  that.createNewMap = createNewMap
-  that.createMapMarkers = createMapMarkers
+  that.createDefaultMap = createDefaultMap;
+  // that.createMapMarkers = createMapMarkers;
+  // that.textSearch = googleTextSearch;
+  that.radar = radar;
 
   return that;
 }
+
+// function googleTextSearch() {
+//   var service;
+//   var infowindow;
+//
+// function initialize() {
+//   var location = new google.maps.LatLng(39.739236,-104.990251);
+//
+//   map = new google.maps.Map(document.getElementById('map'), {
+//       center: location,
+//       zoom: 12
+//     });
+//
+//   var request = {
+//     location: location,
+//     radius: '3600',
+//     query: 'brewery'
+//   };
+//
+//   service = new google.maps.places.PlacesService(map);
+//   service.textSearch(request, callback);
+// }
+//
+// function callback(results, status) {
+//   if (status == google.maps.places.PlacesServiceStatus.OK) {
+//     for (var i = 0; i < results.length; i++) {
+//       var place = results[i];
+//       createMarker(results[i]);
+//     }
+//   }
+// }
+// initialize();
+//
+// }
