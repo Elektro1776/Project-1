@@ -9,6 +9,16 @@ h2 {
     text-align: center;
 }
 
+.searchTitle {
+
+    font-size: 45px;
+}
+
+.brand-logo {
+
+    margin-left: 10px;
+}
+
 #input2[type=text] {
     width: 100%;
     padding: 12px 20px;
@@ -41,11 +51,24 @@ input[type=text]:focus {
 
 nav {
     background-color: #c68400;
+    height: 75px;
 
 }
 
+.bestHops {
+
+    height: 125px;
+    width: 125px;
+}
+
+.brand-logo {
+
+    line-height: 100px;
+}
+
+
 .parallax-container {
-    height: 300px;
+    height: 100px;
 
 }
 
