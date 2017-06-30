@@ -1,0 +1,41 @@
+html {
+
+	height: 100%;
+}
+
+body {
+
+    font-family: sanchez;
+    background: linear-gradient(#fcb82f, #ffffff);
+    background-repeat: no-repeat;
+}
+
+.header {
+	text-align: center;
+	color: white;
+}
+
+#charlieImage {
+
+	width: 340px;
+	height: 300px;
+  	display: block;
+  	margin-top: 50px;
+	margin-left: auto;
+  	margin-right: auto;
+}
+
+#goBackButton {
+
+	margin-top: 15px;
+	    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+#charlieStyle {
+	
+	margin-top: 15px;
+	text-align: center;
+	font-size: 25px;
+}
