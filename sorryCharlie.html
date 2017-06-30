@@ -4,19 +4,38 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Sorry Charlie</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	
 	<!-- JS -->
+	 <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="./assets/javascript/app.js"></script>
 	<!-- local assets -->
 	<link rel="stylesheet" href="./assets/css/sorryCharlie.css">
-	<!-- <link rel="stylesheet" href="./assets/images/charlie.png"> -->
+	<link rel="stylesheet" type= "text/css" href="assets/css/style.css">
 	
 
 </head>
 
-	<body background="./assets/images/charlie.png" class="backdrop">
-		<h1 class= "header">Sorry Charlie!</h1>
+<body>
+
+	<img src = "./assets/images/charlie.png" id= "charlieImage" class="z-depth-5">
+
+	<p id = "charlieStyle" > Sorry Charlie! Looks like you are too young! </p>
+
+	
+	<a href= "./index.html">
+	  <button class="btn waves-effect waves-light" type="goBack" id="goBackButton" name="action">Go back
+       	<i class="material-icons right"></i>
+      </button>
+	</a>
 
 		
 	</body>

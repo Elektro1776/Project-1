@@ -1,7 +1,13 @@
 
+html {
+
+    height: 100%;
+}
+
 body {
 
     font-family: sanchez;
+    height: 100%;
 }
 
 h2 {

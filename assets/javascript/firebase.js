@@ -87,14 +87,18 @@ console.log(today)
 
   // Age verification 
     if (yearsOld < 21){
-      alert("Sorry Charlie")
+
+      var url = "./sorryCharlie.html";
+      window.location = url;
       // window.location.replace("https://www.google.com/")
 
-    } else if (true){
+    } else {
       // Kicks user data into firebase
       setUserData(userInput);
+      var urlResult = "./materialize_search.html";
+      window.location = urlResult;
       // window.location.replace("https://www.google.com/");
-    } else{};
+    };
 
 
   });
