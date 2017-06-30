@@ -8,7 +8,8 @@ function initAutocomplete() {
 $(document).ready(function() {
   const apiKey = 'AIzaSyCwOFrBMJrkRF4Q7MJ-ysYwEWKewhcJlyk';
   let initialMap;
-
+  let searchParams = JSON.parse(localStorage.getItem('searchParams'))
+  console.log(' WE SHOULD HAVE SEARCH PARAMS', searchParams);
   // load our map script file once the dom is ready and our inital map has been called back with DATA
   // this ensures we have access to the google object and start creating new maps
   (function(d, s, id){
@@ -19,9 +20,7 @@ $(document).ready(function() {
     js = d.createElement(s); js.id = id;
     js.onload = function(){
         // script has loaded
-        loadMaps().then(function() {
-          findBeer();
-        });
+        loadMap()
     };
     js.src = "./assets/javascript/maps.js";
     mjs.parentNode.insertBefore(js, mjs);
@@ -29,32 +28,50 @@ $(document).ready(function() {
 
   // loads a default map so we have access to the google map Object throughout
   // the app
-  function loadMaps() {
-    return new Promise(function(resolve, reject) {
-      initialMap = MAPS();
-      resolve(initialMap.createDefaultMap())
-    })
+  function loadMap() {
+    // return new Promise(function(resolve, reject) {
+      initialMap = MAPS(searchParams);
+      initialMap.createDefaultMap();
+      let googleResults;
+      initialMap.geoCodeAddress().then(function(results) {
+        return initialMap.findBreweries(results[0].geometry.location)
+      }).then(function(results) {
+        // findBeer()
+        // return Promise.all(results.map(findBeer))
+        googleResults = results;
+        // initialMap.reverseGeoCode();
+        console.log(' RESPONSE??????', results);
+        // return findBeer()
+        // console.log(' WHAT ARE THE RESULTS???', untapped);
+      })
+      // .then(function(untapped) {
+      //   // filterBreweries(googleResults, untapped)
+      // })
+      // .then(function(results) {
+      // })
+    // })
   }
-  let allResults;
-  let googleService;
-  function foundBreweries(results, service) {
-    console.log(' HELLOOOOOO FROM TEST ??????', results);
-    allResults = results;
-    googleService = service;
-    return;
-  }
+
   function findBeer() {
-
     let searchBeer = BEER();
-    let $beerResults = searchBeer.searchUntap();
-    $beerResults.done(function(response) {
-      console.log(' WHAT IS OUR SEARCH BEER', response, allResults);
-      initialMap.findBreweries(response);
-
-    })
+    return searchBeer.searchUntap()
   }
-  function filterBreweries(gPlaces, untapResults) {
-      gPlaces.map(place)
+  function filterBreweries(googleResults, untappedResults) {
+    let untapped = untappedResults.response.beers.items;
+      let allMatches = untapped.map(function(beer, uIndex) {
+        let uLat = parseFloat(beer.brewery.location.lat.toFixed(2));
+        let uLng = parseFloat(beer.brewery.location.lng.toFixed(2));
+        return googleResults.filter(function(result, index) {
+          let googleLat = parseFloat(result.geometry.location.lat().toFixed(2));
+          let googleLng = parseFloat(result.geometry.location.lng().toFixed(2));
+          if (googleLat === uLat && googleLng === uLng) {
+            // console.log(' WE HAVE untapped', {uLat, googleLat, beer}, { uLng, googleLng }, uIndex, "googleeee",  index);
+            return beer
+          }
+        });
+      })
+      console.log(' WHAT ARE ALL THE MATCHES?', allMatches);
+      // googleResults.filter()
   }
 
 })
