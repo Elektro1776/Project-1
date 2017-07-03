@@ -14,6 +14,7 @@ $(document).ready(function() {
   let now = new Date();
   let later;
   function injectMapScript() {
+    console.log(' IS THIS RUNNING');
     (function(d, s, id){
       var js, mjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)){
