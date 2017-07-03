@@ -7,7 +7,7 @@ let MAPS = (spec, mySecrets) => {
       let location = response[0].geometry.location;
       map = new google.maps.Map(document.getElementById('map'), {
         center: location,
-        zoom: 15,
+        zoom: 13,
         mapTypeId: 'roadmap'
       });
       service = new google.maps.places.PlacesService(map);

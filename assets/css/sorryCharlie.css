@@ -1,9 +1,5 @@
-html {
 
-	height: 100%;
-}
-
-body {
+#SorryCharlie {
 
     font-family: sanchez;
     background: linear-gradient(#fcb82f, #ffffff);
@@ -30,11 +26,11 @@ body {
 	margin-top: 15px;
 	    display: block;
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
 }
 
 #charlieStyle {
-	
+
 	margin-top: 15px;
 	text-align: center;
 	font-size: 25px;
