@@ -34,6 +34,7 @@ input[type=text] {
     padding: 12px 20px 12px 40px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+    color: black;
 }
 
 input[type=text]:focus {
@@ -52,14 +53,43 @@ input[type=text]:focus {
 
 nav {
     background-color: #d88228;
-    height: 75px;
+    height: 115px;
+
+}
+
+#sidenav-overlay {
+
+z-index: 10;
+
+}
+
+#navBarForm {
+
+    margin-top: 15px;
+}
+
+#navImage {
+    
+    display: block;
+    margin-top: 20px;
+    height: 100px;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
 .bestHops {
 
-    height: 125px;
-    width: 125px;
+    height: 110px;
+    width: 550px;
+}
+
+.bestHopsTitle {
+
+    margin-top: 25px;
+    height: 60px;
+    width: 185px;
 }
 
 .brand-logo {
@@ -76,6 +106,16 @@ nav {
 form {
 
    text-align: center;
+}
+
+.btn {
+
+    background-color: #26af00;
+}
+
+.btn:hover {
+
+    background-color: #0c6d31;
 }
 
 .dropbtn {
