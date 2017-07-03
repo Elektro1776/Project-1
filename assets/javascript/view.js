@@ -1,4 +1,17 @@
 let searchParams = {}
+let googleCardCreator = function() {
+  var that;
+  function createCard(googleDetails) {
+    $.each(googleDetails, function(i, value) {
+      // console.log(' WHAT IS OUR I AND VALUE', i, value);
+      let { name, formatted_phone_number,opening_hours, price_level, website } = value;
+      console.log(' CAN WE GET OUR VARS???', name, formatted_phone_number, opening_hours, price_level, website);
+    });
+  }
+  that = {};
+  that.createCard = createCard;
+  return that;
+}
 $(document).ready(function() {
 
   $('.parallax').parallax();
