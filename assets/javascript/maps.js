@@ -7,9 +7,10 @@ let MAPS = (spec, mySecrets) => {
       let location = response[0].geometry.location;
       map = new google.maps.Map(document.getElementById('map'), {
         center: location,
-        zoom: 13,
+        zoom: 14,
         mapTypeId: 'roadmap'
       });
+      map.panBy(0, -50)
       service = new google.maps.places.PlacesService(map);
       infoWindow = new google.maps.InfoWindow();
     })
@@ -97,6 +98,7 @@ let MAPS = (spec, mySecrets) => {
             });
           })
       }
+
       function formatGoogleResults(details) {
         return new Promise(function(resolve, reject) {
           Promise.all(details.map(createDetailObject))
@@ -105,6 +107,7 @@ let MAPS = (spec, mySecrets) => {
                 });
           });
       }
+
       function createDetailObject(details) {
         let detail = {};
         let keys = Object.keys(details.result);
@@ -134,6 +137,7 @@ let MAPS = (spec, mySecrets) => {
         })
         return detail
       }
+
       // add Markers for our results from google
       function addMarkers(results) {
         for (var i = 0; i < results.length; i++) {
@@ -144,6 +148,7 @@ let MAPS = (spec, mySecrets) => {
         }
       }
      function addMarker(place, i) {
+       console.log(' OUR MAP?????', map);
 
        var marker = new google.maps.Marker({
          map: map,
@@ -151,7 +156,7 @@ let MAPS = (spec, mySecrets) => {
          icon: {
            url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
            anchor: new google.maps.Point(10, 10),
-           scaledSize: new google.maps.Size(10, 17)
+           scaledSize: new google.maps.Size(15, 17)
          }
        });
 
