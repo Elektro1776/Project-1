@@ -1,36 +1,51 @@
 
 let MAPS = (spec, mySecrets) => {
   let that, map, infowindow, service, geocoder;
-   mySecrets = mySecrets || {}
+   mySecrets = mySecrets || {};
   function createDefaultMap(lat, long) {
-    console.log(' WHAT IS THE SPEC????', spec);
+    geoCodeAddress(spec.locationSearch).then((response) => {
+      let location = response[0].geometry.location;
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: location,
+        zoom: 15,
+        mapTypeId: 'roadmap'
+      });
+      service = new google.maps.places.PlacesService(map);
+      infoWindow = new google.maps.InfoWindow();
+    })
+  }
+  function getUserLocation() {
+    var lat;
+        var long;
 
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 39.739236, lng: -104.990251},
-      zoom: 13,
-      mapTypeId: 'roadmap'
-    });
-    service = new google.maps.places.PlacesService(map);
-    geocoder = new google.maps.Geocoder();
-    infoWindow = new google.maps.InfoWindow();
-    // console.log(' Do we have a map', map.getBounds());
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
 
+                lat = pos.lat;
+                long = pos.lng;
+
+                console.log("Lat", lat);
+                console.log("LOng", long);
+
+                // infoWindow.setPosition(pos);
+                // infoWindow.setContent('Location found.');
+                // infoWindow.open(map);
+                // map.setCenter(pos);
+              }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+              });
+            } else {
+              // Browser doesn't support Geolocation
+              handleLocationError(false, infoWindow, map.getCenter());
+            }
   }
 
-  // function createMarker(place) {
-  //   console.log(' WHAT IS THE PLACE???', place.geometry);
-  //   var placeLoc = place.geometry.location;
-  //   infowindow = new google.maps.InfoWindow();
-  //   var marker = new google.maps.Marker({
-  //        map: map,
-  //        position: placeLoc
-  //      });
-  //      google.maps.event.addListener(marker, 'click', function() {
-  //         infowindow.setContent(place.name);
-  //         infowindow.open(map, this);
-  //       });
-  // }
-  function geoCodeAddress() {
+  function geoCodeAddress(location) {
+    geocoder = new google.maps.Geocoder();
     return new Promise(function(resolve,reject) {
         geocoder.geocode( { 'address': spec.locationSearch}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
@@ -45,92 +60,91 @@ let MAPS = (spec, mySecrets) => {
   }
   function reverseGeoCode(result) {
       geocoder.geocode( {placeId: result.place_id }, function(results, status) {
-        // console.log(' WHAT IS THE REVERSE ', results);
       })
   }
   function findBreweries(location) {
-    console.log(' WHAT ', location);
     let request = {
       location: location,
       radius: 1609.34,
-      keyword: 'brewery',
+      keyword: ['bar' , 'brewery'],
     }
     return new Promise(function(resolve, reject) {
-      // setTimeout(function() {
         service.nearbySearch(request, function(results, status) {
-          console.log(' WHAT IS THE STATUS', results, status);
           if (status == google.maps.places.PlacesServiceStatus.OK) {
             resolve(findDetail(results));
           }else {
             reject(status);
           }
         })
-
-      // }, 500)
     });
   }
   function findDetail(results) {
-    console.log(' WHAT IS OUR MAPS', google.maps);
-        return new Promise(function(resolve,reject) {
-          // setTimeout(function() {
-          // setTimeout(function() {
-          let j = 0;
-          let detailsArray = [];
-          function getMissedResults(place) {
-            // console.log(' MISSED RESULTS????', j, place);
-            j ++
-
-            service.getDetails(place, function(details, status) {
-              // console.log(' WE SHOULD HAVE PLACES?????', places);
-
-              if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                // console.log(' DETAILSSSS FOR MISSED QUERY', details, status);
-                 setTimeout(function() {
-                    getMissedResults(result)
-                  }, 1200)
-                // return
-              } else {
-                console.log(' DETAILS ARRAY LENGTH????', detailsArray.length );
-                detailsArray.push(details)
-                if (detailsArray.length == 49) {
-                  console.log(' DETAILS ARRAY', detailsArray);
-                }
-              }
-            })
+        let details;
+          var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": `http://ec2-34-212-47-239.us-west-2.compute.amazonaws.com/api/getPlaceDetails`,
+            "method": "POST",
+            "data": JSON.stringify(results),
+            contentType: 'application/json; charset=utf-8',
           }
-          for (var i = 0, result; i < 50; i++) {
-            result = results[i]
-          // console.log(' RESULTS LENGTH?????', results[i], i);
-          // results.map(function(result) {
-          // reverseGeoCode(result)
-        //  else {
-        console.log(' HELLOOOO???');
-          // getMissedResults(result)
-          // }
-
-
-          // })
-          addMarker(result);
+          addMarkers(results);
+          return  new Promise(function(resolve, reject) {
+            $.ajax(settings).done(function (response) {
+              resolve(response)
+            }).fail((err) => {
+              reject(err)
+            });
+          })
       }
-    // }, 1000)
-
-    resolve()
-            // service.getDetails({placeId: place.place_id}, function(place,status) {
-            //   console.log(' WHAT THE FUCK IS THE STATUS', status);
-            //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-            //     // console.log(' ARE WE GETTING A PLACE??', place);
-            //     resolve(place);
-            //   } else {
-            //     reject(status);
-            //   }
-            // });
-
-          // }, 2000)
-        });
+      function formatGoogleResults(details) {
+        return new Promise(function(resolve, reject) {
+          Promise.all(details.map(createDetailObject))
+                 .then((details) => {
+                  resolve(details)
+                });
+          });
       }
+      function createDetailObject(details) {
+        let detail = {};
+        let keys = Object.keys(details.result);
+         keys.map((key) => {
+          switch (key) {
+            case 'name': {
+              return detail[key] = details.result[key];
+            }
+            case 'opening_hours': {
+              return detail[key] = details.result[key];
+            }
+            case 'formatted_phone_number': {
+              return  detail[key] = details.result[key];
+            };
+            case 'price_level': {
+              return detail[key] = details.result[key];
+            }
+            case 'website' : {
+              return detail[key] = details.result[key];
+            }
 
-     function addMarker(place) {
-       console.log(' WHAT IS THE PLACEW?', place);
+              break;
+            default:
+
+          }
+          return detail;
+        })
+        return detail
+      }
+      // add Markers for our results from google
+      function addMarkers(results) {
+        for (var i = 0; i < results.length; i++) {
+          var result = results[i];
+          if (result !== undefined) {
+            addMarker(result , i);
+          }
+        }
+      }
+     function addMarker(place, i) {
+
        var marker = new google.maps.Marker({
          map: map,
          position: place.geometry.location,
@@ -146,8 +160,7 @@ let MAPS = (spec, mySecrets) => {
            if (status !== google.maps.places.PlacesServiceStatus.OK) {
              console.error(status);
              return;
-           }
-          //  console.log(" WHAT IS OUR RESULT ON CLICK ???", result);
+           };
            infoWindow.setContent(result.name);
            infoWindow.open(map, marker);
          });
@@ -158,43 +171,9 @@ let MAPS = (spec, mySecrets) => {
   that.geoCodeAddress = geoCodeAddress;
   that.reverseGeoCode = reverseGeoCode;
   that.findDetail = findDetail;
-  // that.createMapMarkers = createMapMarkers;
-  // that.textSearch = googleTextSearch;
+  that.getUserLocation = getUserLocation;
+  that.formatGoogleResults = formatGoogleResults;
   that.findBreweries = findBreweries;
 
   return that;
 }
-
-// function googleTextSearch() {
-//   var service;
-//   var infowindow;
-//
-// function initialize() {
-//   var location = new google.maps.LatLng(39.739236,-104.990251);
-//
-//   map = new google.maps.Map(document.getElementById('map'), {
-//       center: location,
-//       zoom: 12
-//     });
-//
-//   var request = {
-//     location: location,
-//     radius: '3600',
-//     query: 'brewery'
-//   };
-//
-//   service = new google.maps.places.PlacesService(map);
-//   service.textSearch(request, callback);
-// }
-//
-// function callback(results, status) {
-//   if (status == google.maps.places.PlacesServiceStatus.OK) {
-//     for (var i = 0; i < results.length; i++) {
-//       var place = results[i];
-//       createMarker(results[i]);
-//     }
-//   }
-// }
-// initialize();
-//
-// }
