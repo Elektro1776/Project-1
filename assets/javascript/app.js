@@ -14,7 +14,6 @@ $(document).ready(function() {
   let now = new Date();
   let later;
   function injectMapScript() {
-    console.log(' IS THIS RUNNING');
     (function(d, s, id){
       var js, mjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)){
@@ -43,16 +42,12 @@ $(document).ready(function() {
       createGoogleCard = googleCardCreator();
       initialMap.getUserLocation();
       initialMap.createDefaultMap();
-      // let googleResults;
       initialMap.geoCodeAddress(searchParams.locationSearch).then(function(results) {
         return initialMap.findBreweries(results[0].geometry.location)
       }).then(function(results) {
-        // initialMap.reverseGeoCode();
-        // return findBeer()
         return initialMap.formatGoogleResults(results)
       })
       .then(function(googleResults) {
-        console.log(' WE HAVE GOOGLE RESULTS????', googleResults);
         createGoogleCard.createCard(googleResults)
         findBeer().then(function(untappedResults) {
 
