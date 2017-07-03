@@ -92,6 +92,20 @@ z-index: 10;
     width: 185px;
 }
 
+#findBeerBtn {
+
+    height: 50px;
+    width: 100px;
+    margin-top: 25px;
+    margin-left: 15px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: white;
+
+    box-shadow: 3px 3px 3px #6b6b6b;
+}
+
 .brand-logo {
 
     line-height: 100px;
