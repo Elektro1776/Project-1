@@ -83,7 +83,7 @@ let MAPS = (spec, mySecrets) => {
           var settings = {
             "async": true,
             "crossDomain": true,
-            "url": `http://ec2-34-212-47-239.us-west-2.compute.amazonaws.com/api/getPlaceDetails`,
+            "url": `https://ec2-34-212-47-239.us-west-2.compute.amazonaws.com/api/getPlaceDetails`,
             "method": "POST",
             "data": JSON.stringify(results),
             contentType: 'application/json; charset=utf-8',

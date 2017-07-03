@@ -38,62 +38,23 @@ $(document).ready(function() {
   // loads a default map so we have access to the google map Object throughout
   // the app
   function loadMap() {
+      let searchBeer = BEER();
       initialMap = MAPS(searchParams);
       createGoogleCard = googleCardCreator();
       initialMap.getUserLocation();
       initialMap.createDefaultMap();
-      initialMap.geoCodeAddress(searchParams.locationSearch).then(function(results) {
+      initialMap.geoCodeAddress(searchParams.locationSearch).then(function (results) {
         return initialMap.findBreweries(results[0].geometry.location)
       }).then(function(results) {
         return initialMap.formatGoogleResults(results)
       })
       .then(function(googleResults) {
         createGoogleCard.createCard(googleResults)
-        findBeer().then(function(untappedResults) {
+        searchBeer.searchUntap().then(function (untappedResults) {
 
         })
-        // if (null) {
-        //   console.log(' WE ARE NULL');
-        //   return
-        // }
-        // filterBreweries(googleResults, untapped)
       })
-      // .then(function(results) {
-      // })
-    // })
-  }
 
-  function findBeer() {
-    let searchBeer = BEER();
-    return searchBeer.searchUntap()
   }
-  function filterBreweries(googleResults, untappedResults) {
-    let untapped = untappedResults.response.beers.items;
-    googleResults.filter((results) => {
-      console.log(' WHAT IS THE RESULT', results.result.name.trim().match(/\S+/g));
-    })
-    untapped.map((results) => {
-      console.log(' WHAT ARE THE UNTAPPED RESULTS', results.brewery.brewery_name);
-    })
-      // let allMatches = untapped.map(function(beer, uIndex) {
-      //   let uLat = parseFloat(beer.brewery.location.lat.toFixed(2));
-      //   let uLng = parseFloat(beer.brewery.location.lng.toFixed(2));
-      //   return googleResults.filter(function(result, index) {
-      //     let googleLat = parseFloat(result.geometry.location.lat().toFixed(2));
-      //     let googleLng = parseFloat(result.geometry.location.lng().toFixed(2));
-      //     if (googleLat === uLat && googleLng === uLng) {
-      //       // console.log(' WE HAVE untapped', {uLat, googleLat, beer}, { uLng, googleLng }, uIndex, "googleeee",  index);
-      //       return beer
-      //     }
-      //   });
-      // })
-      later = new Date();
-      console.log(' WHAT ARE ALL THE MATCHES?', now, later);
-      // googleResults.filter()
-  }
-  let test = {
-    hello: 'world'
-  }
-
 
 })
