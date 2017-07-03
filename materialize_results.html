@@ -31,7 +31,7 @@
 
 </head>
 
-<body>
+<body class="resultsPage">
 
  <div class="navbar-fixed">
   <nav>
@@ -66,7 +66,7 @@
 
    <div class="parallax-container" id = "mapContainer">
 
-     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+     <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
 
      <div id="map"></div>
     <div class="parallax">
@@ -76,7 +76,8 @@
 
 
   <div class="section white">
-    <div class="row container">
+
+    <div class="row ">
 
 
   <!-- Modal Structure -->
@@ -98,6 +99,7 @@
 
 
 <!-- THIS CARD IS FOR UNTAPPED SEARCH -->
+<div class="col l4">
 
   <ul class="collapsible" data-collapsible="accordion">
     <li>
@@ -139,8 +141,9 @@
 
     </li>
     </ul>
-
+</div>
 <!-- THIS CARD IS FOR GOOGLE SEARCH -->
+<div class="col l4">
 
   <ul class="collapsible" data-collapsible="accordion">
     <li>
@@ -180,7 +183,7 @@
 
 
   </ul>
-
+</div>
 
     </div>
     </div>
@@ -197,8 +200,8 @@
 
           <div class="footer-copyright">
             <div class="container">
-             
-        
+
+
           <a class="grey-text text-lighten-4 center" href="#!"> © 2017 Best Hops</a>
 
             </div>
@@ -215,7 +218,7 @@
         <!-- <script src="./assets/javascript/firebase.js" charset="utf-8"></script> -->
         <script src="./assets/javascript/view.js" charset="utf-8"></script>
         <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jvk_PaOvdEptVVlbt_fM799pcwcAztM&libraries=places&callback=initAutocomplete"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jvk_PaOvdEptVVlbt_fM799pcwcAztM&libraries=places&callback=initMap"
           async defer
         >
         </script>

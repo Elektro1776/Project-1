@@ -11,13 +11,13 @@ var lat;
             lat = pos.lat;
             long = pos.lng;
 
-            console.log(lat);
-            console.log(long);
+            console.log("Lat", lat);
+            console.log("LOng", long);
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Location found.');
+            // infoWindow.open(map);
+            // map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -25,7 +25,7 @@ var lat;
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
-      })
+      // })
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
