@@ -4,6 +4,7 @@ function initMap() {
     zoom: 13,
     mapTypeId: 'roadmap'
   });
+
 };
 
 $(document).ready(function() {
@@ -22,7 +23,18 @@ $(document).ready(function() {
       js = d.createElement(s); js.id = id;
       js.onload = function(){
           // script has loaded
-          loadMap()
+          // ran into issues getting google to be accessable by the time this
+          // script is loaded. setTimeout seemed to fix the problem so far
+          function isGoogleLoaded() {
+            if (typeof google === 'object' && typeof google.maps === 'object') {
+              findBeer()
+            } else {
+              setTimeout(isGoogleLoaded, 500)
+            }
+
+          }
+          isGoogleLoaded();
+
       };
       js.src = "./assets/javascript/maps.js";
       mjs.parentNode.insertBefore(js, mjs);
@@ -37,23 +49,29 @@ $(document).ready(function() {
 
   // loads a default map so we have access to the google map Object throughout
   // the app
-  function loadMap() {
-      let searchBeer = BEER();
-      initialMap = MAPS(searchParams);
+  function findBeer() {
+      let beer = BEER();
+
+      initialMap = MAPS(searchParams, beer);
       createGoogleCard = googleCardCreator();
       initialMap.getUserLocation();
       initialMap.createDefaultMap();
-      initialMap.geoCodeAddress(searchParams.locationSearch).then(function (results) {
-        return initialMap.findBreweries(results[0].geometry.location)
-      }).then(function(results) {
-        return initialMap.formatGoogleResults(results)
-      })
-      .then(function(googleResults) {
-        createGoogleCard.createCard(googleResults)
-        searchBeer.searchUntap().then(function (untappedResults) {
-
-        })
-      })
+      // beer.searchBeerMap(searchParams.locationSearch).then((response) => {
+      //   console.log(' DO WE HAVE OUR RESPONSE???', response);
+      // }).catch((err) => {
+      //   console.log(' HUSTON WE HAVE A PROBLEM', err);
+      // })
+      // initialMap.geoCodeAddress(searchParams.locationSearch).then(function (results) {
+      //   return initialMap.findBreweries(results[0].geometry.location)
+      // }).then(function(results) {
+      //   return initialMap.formatGoogleResults(results)
+      // })
+      // .then(function(googleResults) {
+      //   // createGoogleCard.createCard(googleResults)
+      //   // beer.searchUntap().then(function (untappedResults) {
+      //
+      //   // })
+      // })
 
   }
 

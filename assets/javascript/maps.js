@@ -1,8 +1,26 @@
 
-let MAPS = (spec, mySecrets) => {
+let MAPS = (spec, BEER) => {
   let that, map, infowindow, service, geocoder;
-   mySecrets = mySecrets || {};
+   BEER = BEER || {};
+   function findBreweryLocations() {
+    //  return BEER.searchUntap().then((results) => {
+     //
+    //    return BEER.getBreweryLatLng(results);
+    //  }).catch((err) => {
+    //    console.log(' ERROR FROM UNTAPPED HUSTON:::', err);
+    //  })
+   }
   function createDefaultMap(lat, long) {
+    //  findBreweryLocations()
+    //   .then((results) => {
+    //    return reverseGeoCode(results);
+    //   })
+    //   .then((geoAddress) => {
+    //     console.log(' GEO ADDRESSS??????', geoAddress);
+    //   })
+    //   .catch((err) => {
+    //     console.log('ERROR HUSTON', JSON.parse(err.responseText));
+    //   })
     geoCodeAddress(spec.locationSearch).then((response) => {
       let location = response[0].geometry.location;
       map = new google.maps.Map(document.getElementById('map'), {
@@ -46,10 +64,12 @@ let MAPS = (spec, mySecrets) => {
   }
 
   function geoCodeAddress(location) {
+    console.log(' WHAT IS OUR LOCATION???', location);
     geocoder = new google.maps.Geocoder();
     return new Promise(function(resolve,reject) {
-        geocoder.geocode( { 'address': spec.locationSearch}, function(results, status) {
+        geocoder.geocode( { 'address': location}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
+            console.log(' CANE WE GET OUR GEO ADDRES?????', results);
             // resolve results upon a successful status
             resolve(results);
           } else {
@@ -60,8 +80,24 @@ let MAPS = (spec, mySecrets) => {
     });
   }
   function reverseGeoCode(result) {
-      geocoder.geocode( {placeId: result.place_id }, function(results, status) {
+    console.log(' WHAT IS THE PASSED LAT LANG', result);
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": `https://ec2-34-212-47-239.us-west-2.compute.amazonaws.com/api/reverseGeoCode`,
+      "method": "POST",
+      "data": JSON.stringify(result),
+      contentType: 'application/json; charset=utf-8',
+    }
+    return new Promise((resolve, reject) => {
+      $.ajax(settings).done(function(results) {
+        resolve(results);
+      }).fail(function(err) {
+        reject(err);
       })
+
+
+    })
   }
   function findBreweries(location) {
     let request = {
@@ -148,7 +184,7 @@ let MAPS = (spec, mySecrets) => {
         }
       }
      function addMarker(place, i) {
-       console.log(' OUR MAP?????', map);
+      //  console.log(' OUR MAP?????', map);
 
        var marker = new google.maps.Marker({
          map: map,
