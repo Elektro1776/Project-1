@@ -22,7 +22,18 @@ $(document).ready(function() {
       js = d.createElement(s); js.id = id;
       js.onload = function(){
           // script has loaded
-          loadMap()
+          // ran into issues getting google to be accessable by the time this
+          // script is loaded. setTimeout seemed to fix the problem so far
+          function isGoogleLoaded() {
+            if (typeof google === 'object' && typeof google.maps === 'object') {
+              findBeer()
+            } else {
+              setTimeout(isGoogleLoaded, 500)
+            }
+
+          }
+          isGoogleLoaded();
+
       };
       js.src = "./assets/javascript/maps.js";
       mjs.parentNode.insertBefore(js, mjs);
@@ -37,23 +48,22 @@ $(document).ready(function() {
 
   // loads a default map so we have access to the google map Object throughout
   // the app
-  function loadMap() {
+  function findBeer() {
       let searchBeer = BEER();
       initialMap = MAPS(searchParams);
       createGoogleCard = googleCardCreator();
       initialMap.getUserLocation();
       initialMap.createDefaultMap();
       initialMap.geoCodeAddress(searchParams.locationSearch).then(function (results) {
-        return initialMap.findBreweries(results[0].geometry.location)
-      }).then(function(results) {
-        return initialMap.formatGoogleResults(results)
+        console.log(' DID WE GET OUR RESULTS?', results);
+        return initialMap.findBreweries(results)
       })
       .then(function(googleResults) {
+        // console.log(' WHAT ARE THE RESULTS?', results);
         createGoogleCard.createCard(googleResults)
-        searchBeer.searchUntap().then(function (untappedResults) {
-
-        })
+        // return initialMap.formatGoogleResults(results)
       })
+      
 
   }
 

@@ -64,8 +64,9 @@ let MAPS = (spec, mySecrets) => {
       })
   }
   function findBreweries(location) {
+    // console.log('WHAT IS OUR LOCATION', location);
     let request = {
-      location: location,
+      location: location[0].geometry.location,
       radius: 1609.34,
       keyword: ['bar' , 'brewery'],
     }
@@ -91,12 +92,34 @@ let MAPS = (spec, mySecrets) => {
           }
           addMarkers(results);
           return  new Promise(function(resolve, reject) {
-            $.ajax(settings).done(function (response) {
-              resolve(response)
-            }).fail((err) => {
-              reject(err)
-            });
-          })
+          //   let detailArray = [];
+          //   let resultcp = results.slice(0);
+          //   let loop = function(place) {
+          //     if(resultcp.length !== 0) {
+          //       getDetail(place);
+          //     }
+          //       function getDetail(place) {
+          //         service.getDetails(place, function(result, status) {
+          //           if (status !== google.maps.places.PlacesServiceStatus.OK) {
+          //             console.error(status);
+          //             setTimeout(function() {
+          //               getDetail(place);
+          //             }, 500)
+          //           } else {
+          //             console.log(' PUSHHHHH IT', );
+          //             console.log(' RESULTS LENGTH AS WE GO', resultcp.length);
+          //             detailArray.push(result);
+          //             let newArrcp = resultcp.slice(1);
+          //             console.log("What is the newArrcp???", resultcp[0], newArrcp[0]);
+          //             loop(newArrcp[0])
+          //           }
+          //
+          //       })
+          //     }
+          // }
+          // loop(resultcp[0])
+           resolve(formatGoogleResults(results));
+        })
       }
 
       function formatGoogleResults(details) {
@@ -109,24 +132,25 @@ let MAPS = (spec, mySecrets) => {
       }
 
       function createDetailObject(details) {
+        console.log(' WHAT ARE THE DETIALS?', Object.keys(details));
         let detail = {};
-        let keys = Object.keys(details.result);
+        let keys = Object.keys(details);
          keys.map((key) => {
           switch (key) {
             case 'name': {
-              return detail[key] = details.result[key];
+              return detail[key] = details[key];
             }
             case 'opening_hours': {
-              return detail[key] = details.result[key];
+              return detail[key] = details[key];
             }
             case 'formatted_phone_number': {
-              return  detail[key] = details.result[key];
+              return  detail[key] = details[key];
             };
             case 'price_level': {
-              return detail[key] = details.result[key];
+              return detail[key] = details[key];
             }
             case 'website' : {
-              return detail[key] = details.result[key];
+              return detail[key] = details[key];
             }
 
               break;
