@@ -111,6 +111,12 @@ z-index: 10;
     line-height: 100px;
 }
 
+#opening-page-logo img{
+margin-bottom: 50px;
+
+}
+
+
 
 .parallax-container {
     height: 100px;
