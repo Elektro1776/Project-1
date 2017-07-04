@@ -24,7 +24,12 @@ $(document).ready(function() {
 
 	 $('#modal1').modal('close');
 
-	 $(".button-collapse").sideNav();
+	 $(".button-collapse").sideNav({
+
+    closeOnClick: true, 
+
+   });
+
 
 
   $('form').submit(function(e) {

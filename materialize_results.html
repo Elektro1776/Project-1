@@ -6,7 +6,7 @@
   <title>Bar Hop Results!</title>
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 
 
@@ -34,21 +34,51 @@
 
 <body class='resultsPage'>
 
-   <div class="navbar-fixed">
+   <div class="navbar-fixed nav-extended">
     <nav>
       <div class="nav-wrapper">
-        <ul class="right hide-on-med-and-down">
+        <ul class="right">
           <li id= "btnHop">
             <a class="waves-effect waves-light btn" href="#modal1">Bar Hop!</a>
           </li>
         </ul>
+      
+
         <div class="brand-logo center">
-          <p class="searchTitle"> BEST HOPS </p>
+          <img src="./assets/images/trophy_v4.png" class= "bestHops">
         </div>
-        <br>
-        <div class="brand-logo center">
-          <img src="./assets/images/justhops.png" class= "bestHops">
+
+  <ul id="slide-out" class="side-nav">
+<!--     <li><div class="user-view"> -->
+      <div class="background">
+
+      <img src= "./assets/images/trophy_v3.png" id= "navImage">
+
+      <div id="navBarForm">
+        <form id="beerForm">
+          <!--   <p>Animated search form:</p> -->
+          <input type="text" name="Beer Type" id = "beerSearch" placeholder="Beer Type">
+          <br>
+        <!--     <p>Animated search form:</p> -->
+          <input type="text" name="location" id = "locationSearch" placeholder="Where Are You?">
+          <br>
+         <!--    <p>Animated search form:</p> -->
+          <input type="text" name="Brewery Name" id = "breweryName" placeholder="Brewery Name?">
+          <br>
+          <button class="btn waves-effect waves-light" type="submit" id="submitButton" name="action">Take off!
+            <i class="material-icons right"></i>
+          </button>
+        </form>
+      </div>
+
         </div>
+  </ul>
+
+
+    <img src = "./assets/images/findbeer_v1.png" href="#" data-activates="slide-out" class= "button-collapse" id = "findBeerBtn">
+
+    </div>
+
       </div>
     </nav>
   </div>
@@ -60,7 +90,7 @@
 
 
   <div class="section white">
-    <div class="row">
+    <div class="row container">
         <!-- Modal Structure -->
       <div id="modal1" class="modal modal-fixed-footer">
         <h3 id= "breweryResult">Troegs Brewery</h3>
@@ -73,7 +103,7 @@
       </div>
 
       <!-- THIS CARD IS FOR UNTAPPED SEARCH -->
-      <div class="col l4">
+<!--       <div class="col l4"> -->
         <ul class="collapsible" data-collapsible="accordion">
           <li>
             <div class="collapsible-header">
@@ -104,7 +134,7 @@
         </ul>
       </div>
       <!-- THIS CARD IS FOR GOOGLE SEARCH -->
-      <div class="col l4">
+<!--       <div class="col l4">
         <ul class="collapsible" data-collapsible="accordion">
           <li>
             <div class="collapsible-header">
@@ -143,7 +173,7 @@
 
 
         </ul>
-      </div>
+      </div> -->
 
     </div>
     </div>
@@ -152,6 +182,7 @@
   <div class="parallax-container">
     <div class="parallax">
       <img src="./assets/images/dribbble.png">
+    </div>
     </div>
         <footer class="page-footer">
           <div class="container">
