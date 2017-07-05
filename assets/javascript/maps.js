@@ -2,11 +2,12 @@
 let MAPS = (spec, mySecrets) => {
   let that, map, infowindow, service, geocoder;
    mySecrets = mySecrets || {};
-  function createDefaultMap(lat, long) {
+
+  function createDefaultMap(userLocation) {
     geoCodeAddress(spec.locationSearch).then((response) => {
       let location = response[0].geometry.location;
       map = new google.maps.Map(document.getElementById('map'), {
-        center: location,
+        center: userLocation,
         zoom: 14,
         mapTypeId: 'roadmap'
       });
@@ -31,7 +32,7 @@ let MAPS = (spec, mySecrets) => {
 
                 console.log("Lat", lat);
                 console.log("LOng", long);
-
+                localStorage.setItem("latlng", JSON.stringify(pos));
                 // infoWindow.setPosition(pos);
                 // infoWindow.setContent('Location found.');
                 // infoWindow.open(map);
@@ -64,62 +65,43 @@ let MAPS = (spec, mySecrets) => {
       })
   }
   function findBreweries(location) {
-    // console.log('WHAT IS OUR LOCATION', location);
     let request = {
-      location: location[0].geometry.location,
+      location: JSON.parse(localStorage.getItem('latlng')),
       radius: 1609.34,
       keyword: ['bar' , 'brewery'],
     }
     return new Promise(function(resolve, reject) {
         service.nearbySearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
-            resolve(findDetail(results));
+            // resolve(findDetail(results));
+            addMarkers(results);
+            let firstResultSet = results.slice(0,9);
+
+            Promise.all(firstResultSet.map(findDetail)).then(function(details) {
+              resolve(formatGoogleResults(details));
+            })
           }else {
             reject(status);
           }
         })
     });
   }
-  function findDetail(results) {
-        let details;
-          var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": `https://ec2-34-212-47-239.us-west-2.compute.amazonaws.com/api/getPlaceDetails`,
-            "method": "POST",
-            "data": JSON.stringify(results),
-            contentType: 'application/json; charset=utf-8',
-          }
-          addMarkers(results);
-          return  new Promise(function(resolve, reject) {
-          //   let detailArray = [];
-          //   let resultcp = results.slice(0);
-          //   let loop = function(place) {
-          //     if(resultcp.length !== 0) {
-          //       getDetail(place);
-          //     }
-          //       function getDetail(place) {
-          //         service.getDetails(place, function(result, status) {
-          //           if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          //             console.error(status);
-          //             setTimeout(function() {
-          //               getDetail(place);
-          //             }, 500)
-          //           } else {
-          //             console.log(' PUSHHHHH IT', );
-          //             console.log(' RESULTS LENGTH AS WE GO', resultcp.length);
-          //             detailArray.push(result);
-          //             let newArrcp = resultcp.slice(1);
-          //             console.log("What is the newArrcp???", resultcp[0], newArrcp[0]);
-          //             loop(newArrcp[0])
-          //           }
-          //
-          //       })
-          //     }
-          // }
-          // loop(resultcp[0])
-           resolve(formatGoogleResults(results));
-        })
+  function findDetail(resultND, i) {
+        return new Promise(function(resolve, reject) {
+          service.getDetails(resultND, function(result, status) {
+            let okayStatus = google.maps.places.PlacesServiceStatus.OK;
+            let overLimit = google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT;
+            if (status !== okayStatus) {
+                if(status === overLimit) {
+                  console.error(status);
+                  throw status
+                }
+                console.error(status);
+              throw status;
+            }
+            resolve(result);
+          });
+        });
       }
 
       function formatGoogleResults(details) {
@@ -132,7 +114,6 @@ let MAPS = (spec, mySecrets) => {
       }
 
       function createDetailObject(details) {
-        console.log(' WHAT ARE THE DETIALS?', Object.keys(details));
         let detail = {};
         let keys = Object.keys(details);
          keys.map((key) => {
@@ -152,12 +133,9 @@ let MAPS = (spec, mySecrets) => {
             case 'website' : {
               return detail[key] = details[key];
             }
-
-              break;
             default:
-
+              return detail;
           }
-          return detail;
         })
         return detail
       }
@@ -172,8 +150,6 @@ let MAPS = (spec, mySecrets) => {
         }
       }
      function addMarker(place, i) {
-       console.log(' OUR MAP?????', map);
-
        var marker = new google.maps.Marker({
          map: map,
          position: place.geometry.location,
