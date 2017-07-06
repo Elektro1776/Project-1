@@ -43,6 +43,10 @@ $(document).ready(function() {
   // this ensures we have access to the google object and start creating new maps
   if($('body').hasClass('resultsPage')) {
     injectMapScript();
+  } else if ($('body').hasClass('signin')) {
+    initialMap = MAPS(searchParams);
+    initialMap.getUserLocation();
+
   }
 
 
@@ -51,9 +55,9 @@ $(document).ready(function() {
   function findBeer() {
       let searchBeer = BEER();
       initialMap = MAPS(searchParams);
+      let userLocation = JSON.parse(localStorage.getItem("latlng"))
       createGoogleCard = googleCardCreator();
-      initialMap.getUserLocation();
-      initialMap.createDefaultMap();
+      initialMap.createDefaultMap(userLocation);
       initialMap.geoCodeAddress(searchParams.locationSearch).then(function (results) {
         console.log(' DID WE GET OUR RESULTS?', results);
         return initialMap.findBreweries(results)
@@ -63,7 +67,7 @@ $(document).ready(function() {
         createGoogleCard.createCard(googleResults)
         // return initialMap.formatGoogleResults(results)
       })
-      
+
 
   }
 
