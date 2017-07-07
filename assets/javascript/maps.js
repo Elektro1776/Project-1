@@ -116,22 +116,22 @@ let MAPS = (spec, mySecrets) => {
          keys.map((key) => {
           switch (key) {
             case 'name': {
-              return detail[key] = details[key];
+              return detail["name"] = details[key];
             }
             case 'opening_hours': {
-              return detail[key] = details[key];
+              return detail["opening_hours"] = details[key];
             }
             case 'formatted_phone_number': {
-              return  detail[key] = details[key];
+              return  detail["formatted_phone_number"] = details[key];
             };
             case 'price_level': {
-              return detail[key] = details[key];
+              return detail["price_level"] = details[key];
             }
             case 'website' : {
-              return detail[key] = details[key];
+              return detail["website"] = details[key];
             }
             case 'photos': {
-              return detail[key] = details[key][0].getUrl({'maxWidth': 300, 'maxHeight': 300});
+              return detail["photos"] = details[key][0].getUrl({'maxWidth': 300, 'maxHeight': 300});
             }
             default:
               return detail;

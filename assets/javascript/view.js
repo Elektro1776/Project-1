@@ -5,24 +5,38 @@ let googleCardCreator = function() {
     $.each(googleDetails, function(i, value) {
       // console.log(' WHAT IS OUR I AND VALUE', i, value);
       let { name, formatted_phone_number,opening_hours, price_level, website, photos } = value;
-      // console.log(' CAN WE GET OUR VARS???', name, formatted_phone_number, opening_hours, price_level, website, photos);
+
       var targetDiv = $('#searchResults');
-      let allGoogleInfo = JSON.stringify(value);
-      var card = `
-        <div class="col s12 m12 l6">
-          <div class="card">
-            <div class="card-image">
-              <img src=${photos} class = "responsive-img imageStyle">
-                <span class="card-title">${name}</span>
-                <a href = "#modal1" class="moreInfo btn-floating halfway-fab waves-effect waves-light green" data-test=${allGoogleInfo}>
-                  <i class="material-icons">add</i>
-                </a>
-            </div>
-          </div>
-        </div>`
-        $(card).children().children().children('.moreInfo').attr("info", value)
-        console.log($(card).children().children().children('.moreInfo').attr('info'))
-        targetDiv.append(card);
+      let allGoogleInfo = {
+        "name": name,
+        "formatted_phone_number": formatted_phone_number,
+        "opening_hours": opening_hours,
+        "price_level": price_level,
+        "website": website,
+        "photos": photos,
+      };
+      let stringifiedResult = JSON.stringify(allGoogleInfo);
+      let containerDiv = $("<div>");
+
+      var card = 
+          '<div class="card">' +
+            '<div class="card-image">' +
+              `<img src=${photos} class = "responsive-img imageStyle"/>` +
+                `<span class="card-title">${name}</span>` +
+                "<a href = '#modal1' class='moreInfo btn-floating halfway-fab waves-effect waves-light green'>"+
+                  '<iclass="material-icons">add</i>'+
+                '</a>' +
+            '</div>'+
+          '</div>' +
+        
+        containerDiv.addClass("col s12 m12 l6");
+        containerDiv.html(card)
+        containerDiv.data("info", allGoogleInfo);
+
+        // let dataAttr = $(card).children().children().children('.moreInfo').attr("info", {"fuck": "this"});
+        // $(card).data("data", value);
+        // console.log("What is the card data", card)
+        targetDiv.append(containerDiv);
 
     });
   }
@@ -35,15 +49,15 @@ $(document).ready(function() {
 
   $('.parallax').parallax();
 
-	$('.collapsible').collapsible();
+  $('.collapsible').collapsible();
 
-	$(".button-collapse").sideNav();
+  $(".button-collapse").sideNav();
 
-	$('.modal').modal();
+  $('.modal').modal();
 
-	 $('#modal1').modal('close');
+   $('#modal1').modal('close');
 
-	 $(".button-collapse").sideNav({
+   $(".button-collapse").sideNav({
 
     closeOnClick: true,
 
@@ -69,11 +83,12 @@ $(document).ready(function() {
        window.location.replace('./materialize_results.html');
   });
 
-  $('#searchResults div a').click(function(e) {
+  $('#searchResults').on("click", "a", function(e) {
     e.preventDefault();
-    let el = $(this);
-
-    console.log(' WHAT IS THIS???', $(el[0]));
+    let el = $(this).siblings();
+    let elParent = $(this).parent();
+    let parentEl = elParent.parent()
+    console.log("parsed data@@@@@", parentEl.parent().data('info'));
   })
 
 });
