@@ -8,7 +8,7 @@ let googleCardCreator = function() {
       console.log(' CAN WE GET OUR VARS???', name, formatted_phone_number, opening_hours, price_level, website);
       var targetDiv = $('#searchResults');
       var card = `
-        <div class="col s12 m6 l6">
+        <div class="col s12 m12 l6">
           <div class="card">
             <div class="card-image">
               <img src="./assets/images/nugget.jpg" class = "imageStyle">
@@ -25,6 +25,7 @@ let googleCardCreator = function() {
   that.createCard = createCard;
   return that;
 }
+
 $(document).ready(function() {
 
   $('.parallax').parallax();
