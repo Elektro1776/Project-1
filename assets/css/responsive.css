@@ -1,0 +1,31 @@
+
+@media (min-width: 790px){
+.mshow{
+    display: none;
+}
+}
+@media(max-width: 400px){
+    nav{
+        height:60px;
+    }
+}
+
+@media(max-width: 790px){
+    .mhide{
+        display: none;
+
+    }
+    #findBeerBtn{
+        margin:none;
+    }
+}
+
+@media(max-width: 790px){
+    .mhide{
+        display: none;
+
+    }
+    #barhop-mobile-button{
+        margin:none;
+    }
+}

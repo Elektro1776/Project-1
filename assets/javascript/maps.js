@@ -19,9 +19,8 @@ let MAPS = (spec, mySecrets) => {
       var pos = {
                   location
                 };
-                console.log("POSSSS", pos);
       infoWindow.setPosition(pos.location);
-      infoWindow.setContent('Location found.');
+      infoWindow.setContent('You Are Here');
       infoWindow.open(map);
       map.setCenter(pos.location);
       // addMarker(response[0]);
@@ -47,7 +46,6 @@ let MAPS = (spec, mySecrets) => {
   }
 
   function geoCodeAddress(location) {
-    console.log(' LOCATION TO USE?', location);
     geocoder = new google.maps.Geocoder();
     return new Promise(function(resolve,reject) {
         geocoder.geocode( { 'location': location }, function(results, status) {
@@ -76,6 +74,7 @@ let MAPS = (spec, mySecrets) => {
             let firstResultSet = results.slice(0,9);
 
             Promise.all(firstResultSet.map(findDetail)).then(function(details) {
+              console.log(' WHAT ARE THE DETAILS?', details);
               resolve(formatGoogleResults(details));
             })
           }else {
@@ -131,6 +130,9 @@ let MAPS = (spec, mySecrets) => {
             case 'website' : {
               return detail[key] = details[key];
             }
+            case 'photos': {
+              return detail[key] = details[key][0].getUrl({'maxWidth': 300, 'maxHeight': 300});
+            }
             default:
               return detail;
           }
@@ -148,8 +150,6 @@ let MAPS = (spec, mySecrets) => {
         }
       }
      function addMarker(place, i) {
-       console.log(' WHAT IS THE PLACEEEEE', place);
-       console.log(' ADD MARKER FIRE!', i,place.geometry.location.lat(), place.geometry.location.lng(), localStorage.getItem("latlng"));
        var marker = new google.maps.Marker({
          map: map,
          position: place.geometry.location,

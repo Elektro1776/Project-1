@@ -65,7 +65,7 @@ z-index: 10;
 }
 
 #navImage {
-    
+
     display: block;
     margin-top: 20px;
     height: 100px;
@@ -108,7 +108,7 @@ z-index: 10;
     margin-bottom: 50px;
     max-width: 100%;
  /*   background-color: #330000;*/
-    height: 115px; 
+    /*height: 115px; */
 
 
 }
@@ -173,43 +173,8 @@ form {
     background-color: #3e8e41;
 }
 
-@media (min-width: 790px){
-.mshow{
-    display: none;
-}
-}
-@media(max-width: 400px){
-    nav{
-        height:60px;
-    }
-}
-
-@media(max-width: 790px){
-    .mhide{
-        display: none;
-
-    }
-    #findBeerBtn{
-        margin:none;
-    }
-}
-
-@media(max-width: 790px){
-    .mhide{
-        display: none;
-
-    }
-    #barhop-mobile-button{
-        margin:none;
-    }
-}
-
-
-
-
-
 .lower-nav{
-    padding-top: 110px;
+    /*padding-top: 110px;*/
 }
 
 .center-text{
@@ -223,7 +188,8 @@ form {
 
 .card .card-image img {
     display: inline-block;
-    width: 25%;
+    max-width: 100px;
+    width: 100px;
 }
 
 .card .card-image .card-title {
@@ -257,7 +223,7 @@ background-position: 50% 100px !important;height: 10%, width 1;background-size: 
 
 }
 #submitButton{
-    background-color: #996633; 
+    background-color: #996633;
 }
 
 #FBcapture input[type=text]:focus {
@@ -279,9 +245,3 @@ background-position: 50% 100px !important;height: 10%, width 1;background-size: 
 #nav-image{
     max-height: 100%;
 }
-
-
-
-
-
-

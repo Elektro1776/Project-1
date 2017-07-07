@@ -4,19 +4,24 @@ let googleCardCreator = function() {
   function createCard(googleDetails) {
     $.each(googleDetails, function(i, value) {
       // console.log(' WHAT IS OUR I AND VALUE', i, value);
-      let { name, formatted_phone_number,opening_hours, price_level, website } = value;
-      console.log(' CAN WE GET OUR VARS???', name, formatted_phone_number, opening_hours, price_level, website);
+      let { name, formatted_phone_number,opening_hours, price_level, website, photos } = value;
+      // console.log(' CAN WE GET OUR VARS???', name, formatted_phone_number, opening_hours, price_level, website, photos);
       var targetDiv = $('#searchResults');
+      let allGoogleInfo = JSON.stringify(value);
       var card = `
         <div class="col s12 m12 l6">
           <div class="card">
             <div class="card-image">
-              <img src="./assets/images/nugget.jpg" class = "imageStyle">
+              <img src=${photos} class = "responsive-img imageStyle">
                 <span class="card-title">${name}</span>
-                <a href = "#modal1" class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">add</i></a>
+                <a href = "#modal1" class="moreInfo btn-floating halfway-fab waves-effect waves-light green" data-test=${allGoogleInfo}>
+                  <i class="material-icons">add</i>
+                </a>
             </div>
           </div>
         </div>`
+        $(card).children().children().children('.moreInfo').attr("info", value)
+        console.log($(card).children().children().children('.moreInfo').attr('info'))
         targetDiv.append(card);
 
     });
@@ -63,6 +68,14 @@ $(document).ready(function() {
       localStorage.setItem("searchParams", JSON.stringify(searchParams));
        window.location.replace('./materialize_results.html');
   });
+
+  $('#searchResults div a').click(function(e) {
+    e.preventDefault();
+    let el = $(this);
+
+    console.log(' WHAT IS THIS???', $(el[0]));
+  })
+
 });
 
 // moment(bday, ["DD/MM/YYYY"])

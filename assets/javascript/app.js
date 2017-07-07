@@ -39,6 +39,7 @@ $(document).ready(function() {
       mjs.parentNode.insertBefore(js, mjs);
     }(document, 'script', 'custom-maps-js'));
   }
+
   // load our map script file once the dom is ready and our inital map has been called back with DATA
   // this ensures we have access to the google object and start creating new maps
   if($('body').hasClass('resultsPage')) {
@@ -64,19 +65,8 @@ $(document).ready(function() {
         return initialMap.findBreweries(response[0].geometry.location)
         })
         .then(function(googleResults) {
-          // console.log(' WHAT ARE THE RESULTS?', results);
           createGoogleCard.createCard(googleResults)
-          // return initialMap.formatGoogleResults(results)
         })
-      // initialMap.geoCodeAddress(searchParams.locationSearch).then(function (results) {
-      //   console.log(' DID WE GET OUR RESULTS?', results);
-      //   return initialMap.findBreweries(results)
-      // })
-      // .then(function(googleResults) {
-      //   // console.log(' WHAT ARE THE RESULTS?', results);
-      //   createGoogleCard.createCard(googleResults)
-      //   // return initialMap.formatGoogleResults(results)
-      // })
 
 
   }
