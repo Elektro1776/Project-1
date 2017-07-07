@@ -31,6 +31,7 @@ input[type=text] {
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
     color: black;
+
 }
 
 input[type=text]:focus {
@@ -39,7 +40,7 @@ input[type=text]:focus {
 
 .page-footer {
 
-    background-color: #d88228;
+    background-color: #996633;
 }
 
 .page-footer .footer-copyright {
@@ -48,7 +49,7 @@ input[type=text]:focus {
 }
 
 nav {
-    background-color: #d88228;
+    background-color: #996633;
     height:115px;
 
 }
@@ -80,6 +81,7 @@ z-index: 10;
     margin-top: 25px;
     height: 60px;
     width: 185px;
+
 }
 
 #findBeerBtn {
@@ -105,6 +107,8 @@ z-index: 10;
 #opening-page-logo img{
     margin-bottom: 50px;
     max-width: 100%;
+ /*   background-color: #330000;*/
+    height: 115px; 
 
 
 }
@@ -169,10 +173,6 @@ form {
     background-color: #3e8e41;
 }
 
-.bottom-parallax{
-    min-height: 35vh;
-}
-
 @media (min-width: 790px){
 .mshow{
     display: none;
@@ -194,6 +194,20 @@ form {
     }
 }
 
+@media(max-width: 790px){
+    .mhide{
+        display: none;
+
+    }
+    #barhop-mobile-button{
+        margin:none;
+    }
+}
+
+
+
+
+
 .lower-nav{
     padding-top: 110px;
 }
@@ -201,6 +215,73 @@ form {
 .center-text{
     text-transform: center;
 }
+
+.container .row {
+
+    margin: auto;
+}
+
+.card .card-image img {
+    display: inline-block;
+    width: 25%;
+}
+
+.card .card-image .card-title {
+
+        text-align: center;
+        padding: 0;
+        position: relative;
+        color: black;
+
+}
+
+#new-beerbutton{
+    max-width: 100%;
+    max-height: 100%;
+    width: 150px;
+    height: 150px;
+}
+
+.bottom-parallax{
+    max-width: 100%;
+    min-height: 35vh;
+}
+
+
+#bottom-parallax-img{
+background-position: 50% 100px !important;height: 10%, width 1;background-size: 100%
+}
+
+.parallax-container{
+    background-size: 300px 150px;
+
+}
+#submitButton{
+    background-color: #996633; 
+}
+
+#FBcapture input[type=text]:focus {
+     border-bottom: 1px solid #996633;
+     box-shadow: 0 1px 0 0 #996633;
+
+}
+
+#FBcapture-2 input[type=text]:focus {
+     border-bottom: 1px solid #996633;
+     box-shadow: 0 1px 0 0 #996633;
+
+}
+
+#opening-text{
+    color: #330000;
+}
+
+#nav-image{
+    max-height: 100%;
+}
+
+
+
 
 
 

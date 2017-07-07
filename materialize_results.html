@@ -5,6 +5,7 @@
         <title>Bar Hop Results!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
@@ -26,15 +27,19 @@
             <nav>
                 <div class="nav-wrapper">
                     <ul class="right mhide">
-                        <li id= "btnHop">
-                            <a class="waves-effect waves-light btn" href="#modal1">Bar Hop!</a>
+                        <li id= "barhop-nav-button">
+                            <a class="waves-effect waves-light btn" " href="#modal1">Bar Hop!</a>
                         </li>
                     </ul>
-                    <a href="" class="brand-logo center" id = "opening-page-logo"><img src="./assets/images/trophy_v4.png"></a>
+
+
+                    <a href="" class="brand-logo center" id = "opening-page-logo"><img src="./assets/images/trophy_v7.png"></a>
                     <!-- <div class="brand-logo center">
                         <img src="./assets/images/trophy_v4.png" class= "bestHops">
                     </div> -->
+
                     <ul id="slide-out" class="side-nav">
+                    <form id="FBcapture-2">
                         <!--     <li><div class="user-view"> -->
                         <div class="background">
                             <img src= "./assets/images/trophy_v3.png" id= "navImage">
@@ -69,11 +74,19 @@
                       </div>
                     </nav> -->
 
-        <div class = "lower-nav center-text mshow">
-          <a><img src = "./assets/images/findbeer_v1.png" href="#" data-activates="slide-out" class= "button-collapse" id = "findBeerBtn"></a>
+        <div class = "lower-nav center-text mshow col m6 col s6">
+          <a><img src = "./assets/images/findbeer_v1.png" href="#" data-activates="slide-out" class= "button-collapse" id = "new-beerbutton"></a>
+
+            <ul class="right mshow">
+                <li id= "barhop-mobile-button">
+                    <a class="waves-effect waves-light btn" " href="#modal1">Bar Hop!</a>
+                </li>
+            </ul>
 
           
         </div>
+
+
         <div class="parallax-container" id = "mapContainer">
             <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
             <div id="map"></div>
@@ -90,81 +103,24 @@
                         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Got it!</a>
                     </div>
                 </div>
-                <!-- THIS CARD IS FOR UNTAPPED SEARCH -->
-                <!--       <div class="col l4"> -->
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header">
-                            <p id = "distanceFromMe" class= "distanceCard"> .05 Miles Away </p>
-                            <div class= "cardContainer">
-                                <img src= "./assets/images/nugget.jpg" class = "imageStyle">
-                                <div>
-                                    <h3 id= "breweryResult">Troegs Brewery</h3>
-                                    <h4 id= "beerResult"> East Coast IPA </h4>
-                                    <h5 id= "googleRating">Google Rating ***</h5>
-                                    <h5 id= "unTapRating">Untapped Rating ***</h5>
+                      <div class="row">
+                            <div class="col s12 m6 l6">
+                              <div class="card">
+                                <div class="card-image">
+                                  <img src="./assets/images/nugget.jpg" class = "imageStyle">
+                                      <span class="card-title">Card Title</span>
+                                  <a href = "#modal1" class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">add</i></a>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="collapsible-body">
-                            <span>
-                                <div id= "IBU"> IBU: 6% </div>
-                                <div id= "ABV"> ABV: 50</div>
-                                <br>
-                                <div id= beerDescription>
-                                    Description: BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER BEER.
-                                </div>
-                            </span>
-                        </div>
-                    </li>
-                </ul>
+
+    </div>
+    </div>
+  </div>
             </div>
-            <!-- THIS CARD IS FOR GOOGLE SEARCH -->
-            <!--       <div class="col l4">
-                <ul class="collapsible" data-collapsible="accordion">
-                  <li>
-                    <div class="collapsible-header">
-                
-                    <p id = "distanceFromMe" class= "distanceCard"> .05 Miles Away </p>
-                
-                      <div class= "cardContainer">
-                        <img src= "./assets/images/nugget.jpg" class = "imageStyle">
-                        <div>
-                
-                
-                        <h3>Troegs Brewery</h3>
-                
-                        <h5>Google Rating ***</h5>
-                
-                
-                        </div>
-                      </div>
-                    </div>
-                
-                      <div class="collapsible-body">
-                
-                      <span>
-                
-                        Business Hours: XXXX
-                        <br>
-                        $$$ LEVEL
-                
-                
-                
-                      </span>
-                
-                    </div>
-                
-                  </li>
-                
-                
-                </ul>
-                </div> -->
         </div>
         </div>
         <div class="parallax-container">
             <div class="parallax">
-                <img src="./assets/images/dribbble.png">
+                <img src="./assets/images/bh-background_v4.png">
             </div>
         </div>
         <footer class="page-footer">
@@ -190,4 +146,3 @@
             ></script>
     </body>
 </html>
-COPY TO CLIPBOARD  SELECT ALL
