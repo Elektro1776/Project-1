@@ -15,7 +15,7 @@ Root
         search 2
         search 3
         search 4
-        search 5      
+        search 5
 */
 
 
@@ -30,8 +30,8 @@ Root
   };
 
   firebase.initializeApp(config);
-  
-  // firebase variables 
+
+  // firebase variables
   var database = firebase.database();
   var userRef = database.ref("users");
 
@@ -85,7 +85,7 @@ console.log(today)
     console.log(userBirthday);
     console.log(yearsOld);
 
-  // Age verification 
+  // Age verification
     if (yearsOld < 21){
 
       var url = "./sorryCharlie.html";
@@ -95,7 +95,7 @@ console.log(today)
     } else {
       // Kicks user data into firebase
       setUserData(userInput);
-      var urlResult = "./materialize_search.html";
+      var urlResult = "./materialize_results.html";
       window.location = urlResult;
       // window.location.replace("https://www.google.com/");
     };
@@ -103,8 +103,5 @@ console.log(today)
 
   });
 
-    
+
 });
-      
-
-

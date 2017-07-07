@@ -6,12 +6,26 @@ let googleCardCreator = function() {
       // console.log(' WHAT IS OUR I AND VALUE', i, value);
       let { name, formatted_phone_number,opening_hours, price_level, website } = value;
       console.log(' CAN WE GET OUR VARS???', name, formatted_phone_number, opening_hours, price_level, website);
+      var targetDiv = $('#searchResults');
+      var card = `
+        <div class="col s12 m12 l6">
+          <div class="card">
+            <div class="card-image">
+              <img src="./assets/images/nugget.jpg" class = "imageStyle">
+                <span class="card-title">${name}</span>
+                <a href = "#modal1" class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">add</i></a>
+            </div>
+          </div>
+        </div>`
+        targetDiv.append(card);
+
     });
   }
   that = {};
   that.createCard = createCard;
   return that;
 }
+
 $(document).ready(function() {
 
   $('.parallax').parallax();
@@ -26,7 +40,7 @@ $(document).ready(function() {
 
 	 $(".button-collapse").sideNav({
 
-    closeOnClick: true, 
+    closeOnClick: true,
 
    });
 

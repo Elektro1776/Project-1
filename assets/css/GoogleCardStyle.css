@@ -2,14 +2,30 @@
 
     display: inline-block;
     margin: 10px;
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
 
 }
 
 .cardContainer {
 
     display: inline-flex;
+
+}
+
+
+
+.card .card-image img {
+	display: inline-block;
+	width: 25%;
+}
+
+.card .card-image .card-title {
+
+		text-align: center;
+		padding: 0;
+		position: relative;
+		color: black;
 
 }
 
@@ -32,10 +48,15 @@ h4 {
 .modal.modal-fixed-footer.open {
 
 	height: calc(100% - 130px);
-	width: calc(100% - 600px);
+/*	width: calc(100% - 600px);*/
 	text-align: center;
 	padding-top: 40px;
 
+}
+
+.modal {
+
+	max-height: 50%;
 }
 
 #btnHop {

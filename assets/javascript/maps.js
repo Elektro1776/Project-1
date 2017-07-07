@@ -2,9 +2,12 @@
 let MAPS = (spec, mySecrets) => {
   let that, map, infowindow, service, geocoder;
    mySecrets = mySecrets || {};
-  function createDefaultMap(lat, long) {
-    geoCodeAddress(spec.locationSearch).then((response) => {
+
+  function createDefaultMap(userLocation) {
+    return geoCodeAddress(userLocation).then((response) => {
+
       let location = response[0].geometry.location;
+      console.log(' USER LOCATION', userLocation, location.lat(), location.lng());
       map = new google.maps.Map(document.getElementById('map'), {
         center: location,
         zoom: 14,
@@ -13,29 +16,27 @@ let MAPS = (spec, mySecrets) => {
       map.panBy(0, -50)
       service = new google.maps.places.PlacesService(map);
       infoWindow = new google.maps.InfoWindow();
+      var pos = {
+                  location
+                };
+                console.log("POSSSS", pos);
+      infoWindow.setPosition(pos.location);
+      infoWindow.setContent('Location found.');
+      infoWindow.open(map);
+      map.setCenter(pos.location);
+      // addMarker(response[0]);
     })
   }
   function getUserLocation() {
     var lat;
-        var long;
-
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude
-                };
-
-                lat = pos.lat;
-                long = pos.lng;
-
-                console.log("Lat", lat);
-                console.log("LOng", long);
-
-                // infoWindow.setPosition(pos);
-                // infoWindow.setContent('Location found.');
-                // infoWindow.open(map);
-                // map.setCenter(pos);
+    var long;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude
+                        };
+                localStorage.setItem("latlng", JSON.stringify(pos));
               }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
               });
@@ -46,9 +47,10 @@ let MAPS = (spec, mySecrets) => {
   }
 
   function geoCodeAddress(location) {
+    console.log(' LOCATION TO USE?', location);
     geocoder = new google.maps.Geocoder();
     return new Promise(function(resolve,reject) {
-        geocoder.geocode( { 'address': spec.locationSearch}, function(results, status) {
+        geocoder.geocode( { 'location': location }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             // resolve results upon a successful status
             resolve(results);
@@ -59,67 +61,45 @@ let MAPS = (spec, mySecrets) => {
         });
     });
   }
-  function reverseGeoCode(result) {
-      geocoder.geocode( {placeId: result.place_id }, function(results, status) {
-      })
-  }
+
   function findBreweries(location) {
-    // console.log('WHAT IS OUR LOCATION', location);
     let request = {
-      location: location[0].geometry.location,
+      location: location,
       radius: 1609.34,
       keyword: ['bar' , 'brewery'],
     }
     return new Promise(function(resolve, reject) {
         service.nearbySearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
-            resolve(findDetail(results));
+            // resolve(findDetail(results));
+            addMarkers(results);
+            let firstResultSet = results.slice(0,9);
+
+            Promise.all(firstResultSet.map(findDetail)).then(function(details) {
+              resolve(formatGoogleResults(details));
+            })
           }else {
             reject(status);
           }
         })
     });
   }
-  function findDetail(results) {
-        let details;
-          var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": `https://ec2-34-212-47-239.us-west-2.compute.amazonaws.com/api/getPlaceDetails`,
-            "method": "POST",
-            "data": JSON.stringify(results),
-            contentType: 'application/json; charset=utf-8',
-          }
-          addMarkers(results);
-          return  new Promise(function(resolve, reject) {
-          //   let detailArray = [];
-          //   let resultcp = results.slice(0);
-          //   let loop = function(place) {
-          //     if(resultcp.length !== 0) {
-          //       getDetail(place);
-          //     }
-          //       function getDetail(place) {
-          //         service.getDetails(place, function(result, status) {
-          //           if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          //             console.error(status);
-          //             setTimeout(function() {
-          //               getDetail(place);
-          //             }, 500)
-          //           } else {
-          //             console.log(' PUSHHHHH IT', );
-          //             console.log(' RESULTS LENGTH AS WE GO', resultcp.length);
-          //             detailArray.push(result);
-          //             let newArrcp = resultcp.slice(1);
-          //             console.log("What is the newArrcp???", resultcp[0], newArrcp[0]);
-          //             loop(newArrcp[0])
-          //           }
-          //
-          //       })
-          //     }
-          // }
-          // loop(resultcp[0])
-           resolve(formatGoogleResults(results));
-        })
+  function findDetail(resultND, i) {
+        return new Promise(function(resolve, reject) {
+          service.getDetails(resultND, function(result, status) {
+            let okayStatus = google.maps.places.PlacesServiceStatus.OK;
+            let overLimit = google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT;
+            if (status !== okayStatus) {
+                if(status === overLimit) {
+                  console.error(status);
+                  throw status
+                }
+                console.error(status);
+              throw status;
+            }
+            resolve(result);
+          });
+        });
       }
 
       function formatGoogleResults(details) {
@@ -132,7 +112,6 @@ let MAPS = (spec, mySecrets) => {
       }
 
       function createDetailObject(details) {
-        console.log(' WHAT ARE THE DETIALS?', Object.keys(details));
         let detail = {};
         let keys = Object.keys(details);
          keys.map((key) => {
@@ -152,12 +131,9 @@ let MAPS = (spec, mySecrets) => {
             case 'website' : {
               return detail[key] = details[key];
             }
-
-              break;
             default:
-
+              return detail;
           }
-          return detail;
         })
         return detail
       }
@@ -172,8 +148,8 @@ let MAPS = (spec, mySecrets) => {
         }
       }
      function addMarker(place, i) {
-       console.log(' OUR MAP?????', map);
-
+       console.log(' WHAT IS THE PLACEEEEE', place);
+       console.log(' ADD MARKER FIRE!', i,place.geometry.location.lat(), place.geometry.location.lng(), localStorage.getItem("latlng"));
        var marker = new google.maps.Marker({
          map: map,
          position: place.geometry.location,
@@ -185,7 +161,9 @@ let MAPS = (spec, mySecrets) => {
        });
 
        google.maps.event.addListener(marker, 'click', function() {
+         console.log(' CLICK', marker);
          service.getDetails(place, function(result, status) {
+           console.log(' PLACEEEE CLICKED', result, status);
            if (status !== google.maps.places.PlacesServiceStatus.OK) {
              console.error(status);
              return;
@@ -198,7 +176,7 @@ let MAPS = (spec, mySecrets) => {
   that = {};
   that.createDefaultMap = createDefaultMap;
   that.geoCodeAddress = geoCodeAddress;
-  that.reverseGeoCode = reverseGeoCode;
+  // that.reverseGeoCode = reverseGeoCode;
   that.findDetail = findDetail;
   that.getUserLocation = getUserLocation;
   that.formatGoogleResults = formatGoogleResults;
