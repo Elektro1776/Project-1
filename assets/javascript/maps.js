@@ -96,7 +96,7 @@ let MAPS = (spec, mySecrets) => {
   }
 
   function findBreweries(location) {
-    console.log(' WHAT IS THE LOCATION?', location);
+    console.log(' WHAT IS THE LOCATION?', map.getBounds());
     let request = {
       // location: location,
       bounds: map.getBounds(),
@@ -124,8 +124,6 @@ let MAPS = (spec, mySecrets) => {
               markers[i].placeResult = results[i];
               // google.maps.event.addListener(markers[i], 'click', showInfoWindow);
               setTimeout(dropMarker(i), i * 100);
-              // console.log(' WHAT ARE THE RESULTS[I]', results[i].);
-              // addResult(results[i], i);
             }
             let firstResultSet = results.slice(0,9);
 
