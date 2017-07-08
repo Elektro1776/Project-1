@@ -13,7 +13,7 @@ $(document).ready(function() {
   let searchParams = JSON.parse(localStorage.getItem('searchParams'));
   let now = new Date();
   let later;
-
+  let breweryCheck = (function(searchParams.))
   function injectMapScript() {
     (function(d, s, id){
       var js, mjs = d.getElementsByTagName(s)[0];
@@ -27,6 +27,7 @@ $(document).ready(function() {
           // script is loaded. setTimeout seemed to fix the problem so far
           function isGoogleLoaded() {
             if (typeof google === 'object' && typeof google.maps === 'object') {
+              if()
               findBeer()
             } else {
               setTimeout(isGoogleLoaded, 500)

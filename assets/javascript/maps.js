@@ -59,7 +59,7 @@ let MAPS = (spec, mySecrets) => {
   function findBreweries(location) {
     let request = {
       location: location,
-      radius: 1609.34,
+      radius: 3218.69,
       keyword: ['bar' , 'brewery'],
     }
     return new Promise(function(resolve, reject) {
