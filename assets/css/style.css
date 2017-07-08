@@ -176,7 +176,9 @@ form {
 .lower-nav{
     /*padding-top: 110px;*/
 }
-
+.card-image {
+  height: 200px;
+}
 .center-text{
     text-transform: center;
 }

@@ -1,3 +1,4 @@
+let initialMap;
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -33.8688, lng: 151.2195},
@@ -8,12 +9,11 @@ function initMap() {
 
 $(document).ready(function() {
   const apiKey = 'AIzaSyCwOFrBMJrkRF4Q7MJ-ysYwEWKewhcJlyk';
-  let initialMap;
   let createGoogleCard;
   let searchParams = JSON.parse(localStorage.getItem('searchParams'));
   let now = new Date();
   let later;
-  let breweryCheck = (function(searchParams.))
+  // let breweryCheck = (function(searchParams.))
   function injectMapScript() {
     (function(d, s, id){
       var js, mjs = d.getElementsByTagName(s)[0];
@@ -27,7 +27,7 @@ $(document).ready(function() {
           // script is loaded. setTimeout seemed to fix the problem so far
           function isGoogleLoaded() {
             if (typeof google === 'object' && typeof google.maps === 'object') {
-              if()
+              // if()
               findBeer()
             } else {
               setTimeout(isGoogleLoaded, 500)
@@ -59,14 +59,12 @@ $(document).ready(function() {
       initialMap = MAPS(searchParams);
 
       initialMap.getUserLocation().then(function(position) {
-        console.log(' DO WE HAVE POSITION', position);
         let userLocation = position.location;
         initialMap.createDefaultMap(userLocation);
-        console.log(' WHAT IS OUR USER LOCATION?', userLocation);
         createGoogleCard = googleCardCreator();
         initialMap.geoCodeAddress(userLocation).then(function(response) {
           console.log(' WHAT IS THE TEST?', response[0].geometry.location.lat());
-          return initialMap.findBreweries(response[0].geometry.location)
+          return initialMap.findBreweries({lat: response[0].geometry.location.lat(), lng: response[0].geometry.location.lng()})
         })
         .then(function(googleResults) {
           createGoogleCard.createCard(googleResults)
