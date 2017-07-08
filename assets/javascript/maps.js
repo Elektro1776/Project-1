@@ -4,39 +4,38 @@ let MAPS = (spec, mySecrets) => {
    mySecrets = mySecrets || {};
 
   function createDefaultMap(userLocation) {
-    geoCodeAddress(spec.locationSearch).then((response) => {
+    return geoCodeAddress(userLocation).then((response) => {
+
       let location = response[0].geometry.location;
+      console.log(' USER LOCATION', userLocation, location.lat(), location.lng());
       map = new google.maps.Map(document.getElementById('map'), {
-        center: userLocation,
+        center: location,
         zoom: 14,
         mapTypeId: 'roadmap'
       });
       map.panBy(0, -50)
       service = new google.maps.places.PlacesService(map);
       infoWindow = new google.maps.InfoWindow();
+      var pos = {
+                  location
+                };
+      infoWindow.setPosition(pos.location);
+      infoWindow.setContent('You Are Here');
+      infoWindow.open(map);
+      map.setCenter(pos.location);
+      // addMarker(response[0]);
     })
   }
   function getUserLocation() {
     var lat;
-        var long;
-
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude
-                };
-
-                lat = pos.lat;
-                long = pos.lng;
-
-                console.log("Lat", lat);
-                console.log("LOng", long);
+    var long;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude
+                        };
                 localStorage.setItem("latlng", JSON.stringify(pos));
-                // infoWindow.setPosition(pos);
-                // infoWindow.setContent('Location found.');
-                // infoWindow.open(map);
-                // map.setCenter(pos);
               }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
               });
@@ -49,7 +48,7 @@ let MAPS = (spec, mySecrets) => {
   function geoCodeAddress(location) {
     geocoder = new google.maps.Geocoder();
     return new Promise(function(resolve,reject) {
-        geocoder.geocode( { 'address': spec.locationSearch}, function(results, status) {
+        geocoder.geocode( { 'location': location }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             // resolve results upon a successful status
             resolve(results);
@@ -60,13 +59,10 @@ let MAPS = (spec, mySecrets) => {
         });
     });
   }
-  function reverseGeoCode(result) {
-      geocoder.geocode( {placeId: result.place_id }, function(results, status) {
-      })
-  }
+
   function findBreweries(location) {
     let request = {
-      location: JSON.parse(localStorage.getItem('latlng')),
+      location: location,
       radius: 1609.34,
       keyword: ['bar' , 'brewery'],
     }
@@ -78,6 +74,7 @@ let MAPS = (spec, mySecrets) => {
             let firstResultSet = results.slice(0,9);
 
             Promise.all(firstResultSet.map(findDetail)).then(function(details) {
+              console.log(' WHAT ARE THE DETAILS?', details);
               resolve(formatGoogleResults(details));
             })
           }else {
@@ -117,20 +114,27 @@ let MAPS = (spec, mySecrets) => {
         let detail = {};
         let keys = Object.keys(details);
          keys.map((key) => {
+           console.log(' WHAT ARE THE KEYS?', key, details[key]);
           switch (key) {
             case 'name': {
-              return detail[key] = details[key];
+              return detail["name"] = details[key];
             }
             case 'opening_hours': {
-              return detail[key] = details[key];
+              return detail["opening_hours"] = details[key];
             }
             case 'formatted_phone_number': {
-              return  detail[key] = details[key];
+              return  detail["formatted_phone_number"] = details[key];
             };
             case 'price_level': {
-              return detail[key] = details[key];
+              return detail["price_level"] = details[key];
             }
             case 'website' : {
+              return detail["website"] = details[key];
+            }
+            case 'photos': {
+              return detail["photos"] = details[key][0].getUrl({'maxWidth': 300, 'maxHeight': 300});
+            }
+            case 'rating': {
               return detail[key] = details[key];
             }
             default:
@@ -161,7 +165,9 @@ let MAPS = (spec, mySecrets) => {
        });
 
        google.maps.event.addListener(marker, 'click', function() {
+         console.log(' CLICK', marker);
          service.getDetails(place, function(result, status) {
+           console.log(' PLACEEEE CLICKED', result, status);
            if (status !== google.maps.places.PlacesServiceStatus.OK) {
              console.error(status);
              return;
@@ -174,7 +180,7 @@ let MAPS = (spec, mySecrets) => {
   that = {};
   that.createDefaultMap = createDefaultMap;
   that.geoCodeAddress = geoCodeAddress;
-  that.reverseGeoCode = reverseGeoCode;
+  // that.reverseGeoCode = reverseGeoCode;
   that.findDetail = findDetail;
   that.getUserLocation = getUserLocation;
   that.formatGoogleResults = formatGoogleResults;

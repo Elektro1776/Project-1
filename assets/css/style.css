@@ -10,10 +10,6 @@
     font-size: 45px;
 }
 
-.brand-logo {
-
-    margin-left: 10px;
-}
 
 #input2[type=text] {
     width: 100%;
@@ -23,7 +19,7 @@
 }
 
 input[type=text] {
-    width: 500px;
+    max-width:500px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -35,6 +31,7 @@ input[type=text] {
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
     color: black;
+
 }
 
 input[type=text]:focus {
@@ -43,7 +40,7 @@ input[type=text]:focus {
 
 .page-footer {
 
-    background-color: #d88228;
+    background-color: #996633;
 }
 
 .page-footer .footer-copyright {
@@ -52,8 +49,8 @@ input[type=text]:focus {
 }
 
 nav {
-    background-color: #d88228;
-    height: 115px;
+    background-color: #996633;
+    height:115px;
 
 }
 
@@ -64,12 +61,11 @@ z-index: 10;
 }
 
 #navBarForm {
-
     margin-top: 15px;
 }
 
 #navImage {
-    
+
     display: block;
     margin-top: 20px;
     height: 100px;
@@ -79,17 +75,13 @@ z-index: 10;
 
 }
 
-.bestHops {
-
-    height: 110px;
-    width: 550px;
-}
 
 .bestHopsTitle {
 
     margin-top: 25px;
     height: 60px;
     width: 185px;
+
 }
 
 #findBeerBtn {
@@ -107,10 +99,19 @@ z-index: 10;
 }
 
 .brand-logo {
-
-    line-height: 100px;
+    width:550px;
+    max-width: 80%;
+    padding: 2rem 0;
 }
 
+#opening-page-logo img{
+    margin-bottom: 50px;
+    max-width: 100%;
+ /*   background-color: #330000;*/
+    /*height: 115px; */
+
+
+}
 
 .parallax-container {
     height: 100px;
@@ -170,4 +171,77 @@ form {
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+.lower-nav{
+    /*padding-top: 110px;*/
+}
+
+.center-text{
+    text-transform: center;
+}
+
+.container .row {
+
+    margin: auto;
+}
+
+.card .card-image img {
+    display: inline-block;
+    max-width: 100px;
+    width: 100px;
+}
+
+.card .card-image .card-title {
+
+        text-align: center;
+        padding: 0;
+        position: relative;
+        color: black;
+
+}
+
+#new-beerbutton{
+    max-width: 100%;
+    max-height: 100%;
+    width: 150px;
+    height: 150px;
+}
+
+.bottom-parallax{
+    max-width: 100%;
+    min-height: 35vh;
+}
+
+
+#bottom-parallax-img{
+background-position: 50% 100px !important;height: 10%, width 1;background-size: 100%
+}
+
+.parallax-container{
+    background-size: 300px 150px;
+
+}
+#submitButton{
+    background-color: #996633;
+}
+
+#FBcapture input[type=text]:focus {
+     border-bottom: 1px solid #996633;
+     box-shadow: 0 1px 0 0 #996633;
+
+}
+
+#FBcapture-2 input[type=text]:focus {
+     border-bottom: 1px solid #996633;
+     box-shadow: 0 1px 0 0 #996633;
+
+}
+
+#opening-text{
+    color: #330000;
+}
+
+#nav-image{
+    max-height: 100%;
 }

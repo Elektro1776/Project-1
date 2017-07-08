@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
 
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+ 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-  <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/common.css">
   <link rel="stylesheet" href="./assets/css/googleMapStyle.css">
+    <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
   <!-- Compiled and minified CSS -->
 
 
@@ -37,91 +37,73 @@
 
 <!-- <div> this is a comment</div> -->
 
- <div class="navbar-fixed">
-  <nav>
-    <div class="nav-wrapper">
-          <div class="brand-logo center">
 
-    <p class="searchTitle"> BEST HOPS </p>
+<nav>
+  <div class="nav-wrapper">
+    <div class="brand-logo center" id = "opening-page-logo">
+        <img src="./assets/images/trophy_v7.png" class= "bestHops">
 
     </div>
-
     <br>
-
-    <div class="brand-logo center">
-    <img src="./assets/images/justhops.png" class= "bestHops">
-
-    </div>
-
-
-
-        <ul class="side-nav" id="mobile-demo">
-        <li><a href="sass.html">Find Another Beer!</a></li>
-
-      </ul>
-    </div>
-
-    </div>
-  </nav>
   </div>
+</nav>
+<div class="parallax-container" id ="background-img">
+  <div class="parallax"><img src="./assets/images/bh-background_v4.png"></div>
+</div>
+  
+<div class="section white">
+  <div class="row container">
+    <h3 class="header" id= "opening-text">Let's see some id.</h3>
 
-   <div class="parallax-container">
-    <div class="parallax"><img src="./assets/images/beerbubbles.jpg"></div>
+
+    <form id="FBcapture">
+
+  <!--   <p>Animated search form:</p> -->
+
+      <input type="text" name="Beer Type" id = "userName" placeholder="What's Your Name?" required>
+      <br>
+<!--     <p>Animated search form:</p> -->
+
+
+      <input type="text" name="location" id = "userBDay" placeholder="When Were you Born [MM/DD/YYYY]?" required>
+      <br>
+
+ <!--    <p>Animated search form:</p> -->
+
+      <input type="text" name="Brewery Name" id = "userEmail" placeholder="What's Your Email Address?">
+
+      <br>
+
+      <button class="btn waves-effect waves-light" type="submit" id="submitButton" name="action" >Let's get hopping!
+
+      <i class="material-icons right"></i>
+
+      </button>
+    </form>
+
+
   </div>
-  <div class="section white">
-    <div class="row container">
-      <h3 class="header">Let's see some id.</h3>
+</div>
 
-
-            <form id="FBcapture">
-
-          <!--   <p>Animated search form:</p> -->
-
-              <input type="text" name="Beer Type" id = "userName" placeholder="What's Your Name?" required>
-              <br>
-        <!--     <p>Animated search form:</p> -->
-
-
-              <input type="text" name="location" id = "userBDay" placeholder="When Were you Born [MM/DD/YYYY]?" required>
-              <br>
-
-         <!--    <p>Animated search form:</p> -->
-
-              <input type="text" name="Brewery Name" id = "userEmail" placeholder="What's Your Email Address?">
-
-            <br>
-
-            <button class="btn waves-effect waves-light" type="submit" id="submitButton" name="action" >Take off!
-
-            <i class="material-icons right"></i>
-
-            </button>
-            </form>
-
-
-    </div>
-  </div>
-  <div class="parallax-container">
-    <div class="parallax"><img src="./assets/images/dribbble.png"></div>
-  </div>
+<div class="parallax-container bottom-parallax" id= "bottom-parallax-img">
+  <div class="parallax"><img src="./assets/images/bh-background_v4.png"></div>
+</div>
 
 
 
-          <footer class="page-footer">
-          <div class="container">
-            <div class="row">
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
 
-          <div class="footer-copyright">
-            <div class="container">
-
-
+      <div class="footer-copyright">
+        <div class="container">
           <a class="grey-text text-lighten-4 center" href="#!"> © 2017 Best Hops</a>
 
-            </div>
-          </div>
-          </div>
-          </div>
-        </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 
 

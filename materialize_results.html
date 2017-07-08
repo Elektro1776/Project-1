@@ -1,162 +1,133 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bar Hop Results!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+        <link rel="stylesheet" type= "text/css" href="./assets/css/common.css">
+        <link rel="stylesheet" type= "text/css" href="./assets/css/googleMapStyle.css">
+        <link rel="stylesheet" type= "text/css" href="./assets/css/GoogleCardStyle.css">
+        <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type= "text/css" href="./assets/css/responsive.css">
+        <!-- Compiled and minified CSS -->
+        <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+        <!-- End Thirdparty libs -->
+        <script src="./assets/javascript/javascript_style.js"></script>
+    </head>
+    <body class='resultsPage'>
+        <div class="navbar-fixed nav-extended">
+          <nav class="nav">
+            <!-- Begin Nav Wrapper  -->
+            <div class="nav-wrapper">
 
-  <meta charset="UTF-8">
-  <title>Bar Hop Results!</title>
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
-
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-  <link rel="stylesheet" type= "text/css" href="assets/css/style.css">
-  <link rel="stylesheet" href="./assets/css/common.css">
-  <link rel="stylesheet" href="./assets/css/googleMapStyle.css">
-  <link rel="stylesheet" href="./assets/css/GoogleCardStyle.css">
-  <!-- Compiled and minified CSS -->
-
-
-  <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-  <!-- Compiled and minified JavaScript -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-
-  <!-- End Thirdparty libs -->
-  <script src="./assets/javascript/javascript_style.js"></script>
-  <!-- <script src="./assets/javascript/app.js" charset="utf-8"></script> -->
-  <!-- <script src="./assets/javascript/firebase.js" charset="utf-8"></script> -->
-
-
-</head>
-
-<body class='resultsPage'>
-
-   <div class="navbar-fixed nav-extended">
-    <nav>
-      <div class="nav-wrapper">
-        <ul class="right">
-          <li id= "btnHop">
-            <a class="waves-effect waves-light btn" href="#modal1">Bar Hop!</a>
-          </li>
-        </ul>
-
-
-        <div class="brand-logo center">
-          <img src="./assets/images/trophy_v4.png" class= "bestHops">
-        </div>
-
-  <ul id="slide-out" class="side-nav">
-<!--     <li><div class="user-view"> -->
-      <div class="background">
-
-      <img src= "./assets/images/trophy_v3.png" id= "navImage">
-
-      <div id="navBarForm">
-        <form id="beerForm">
-          <!--   <p>Animated search form:</p> -->
-          <input type="text" name="Beer Type" id = "beerSearch" placeholder="Beer Type">
-          <br>
-        <!--     <p>Animated search form:</p> -->
-          <input type="text" name="location" id = "locationSearch" placeholder="Where Are You?">
-          <br>
-         <!--    <p>Animated search form:</p> -->
-          <input type="text" name="Brewery Name" id = "breweryName" placeholder="Brewery Name?">
-          <br>
-          <button class="btn waves-effect waves-light" type="submit" id="submitButton" name="action">Take off!
-            <i class="material-icons right"></i>
-          </button>
-        </form>
-      </div>
-
-        </div>
-  </ul>
-
-
-    <img src = "./assets/images/findbeer_v1.png" href="#" data-activates="slide-out" class= "button-collapse" id = "findBeerBtn">
-
-    </div>
-
-      </div>
-    </nav>
-  </div>
-  <div class="parallax-container" id = "mapContainer">
-    <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
-    <div id="map"></div>
-  </div>
-
-
-
-  <div class="section white">
-    <div id="searchResults" class="row container ">
-        <!-- Modal Structure -->
-      <div id="modal1" class="modal modal-fixed-footer">
-        <h3 id= "breweryResult">Troegs Brewery</h3>
-        <h5 id= "googleRating">Google Rating ***</h5>
-        <p id = "distanceFromMe"> .05 Miles Away </p>
-        <img src= "./assets/images/nugget.jpg" class = "imageStyle">
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Got it!</a>
-        </div>
-      </div>
-
-      <!-- THIS CARD IS FOR UNTAPPED SEARCH -->
-<!--       <div class="col l4"> -->
-        
-      </div>
-      <!-- THIS CARD IS FOR GOOGLE SEARCH -->
-<!--       <div class="col l4">
-        <ul class="collapsible" data-collapsible="accordion">
-          <li>
-            <div class="collapsible-header">
-
-            <p id = "distanceFromMe" class= "distanceCard"> .05 Miles Away </p>
-
-              <div class= "cardContainer">
-                <img src= "./assets/images/nugget.jpg" class = "imageStyle">
-                <div>
-
-
-                <h3>Troegs Brewery</h3>
-
-                <h5>Google Rating ***</h5>
-
-
+              <img class="responsive-img button-collapse mhide" id="findBeerBtn" src="./assets/images/findbeer_v1.png" href="#" data-activates="slide-out" />
+              <!--  Slide Out modal from left -->
+              <div id="slide-out" class="side-nav">
+                <div class="background">
+                  <img id= "navImage" class="responsive-img" src= "./assets/images/trophy_v3.png" >
+                    <div id="navBarForm">
+                      <form id="beerForm">
+                        <input type="text" name="Beer Type" id = "beerSearch" placeholder="Beer Type">
+                        <br>
+                        <input type="text" name="location" id = "locationSearch" placeholder="Where Are You?">
+                        <br>
+                        <input type="text" name="Brewery Name" id = "breweryName" placeholder="Brewery Name?">
+                        <br>
+                        <button class="btn waves-effect waves-light" type="submit" id="submitButton" name="action">Take off!
+                          <i class="material-icons right"></i>
+                        </button>
+                    </form>
+                  </div>
                 </div>
               </div>
+              <!-- End Slide Out modal -->
+
+              <a href="" class="brand-logo center" id = "opening-page-logo">
+                <img class="responsive-img" src="./assets/images/trophy_v7.png">
+              </a>
+
+              <!-- Right Nav Bar Button -->
+              <div class="right mhide">
+                <div id= "barhop-nav-button">
+                  <a class="waves-effect waves-light btn" href="#modal1">Bar Hop!</a>
+                </div>
+              </div>
+              <!-- End Right Nav Button -->
+
             </div>
+            <!-- End Nav Wrapper -->
+          </nav>
+        </div>
 
-              <div class="collapsible-body">
+        <div class="parallax-container" id = "mapContainer">
+            <div id="map"></div>
+        </div>
 
-              <span>
-
-                Business Hours: XXXX
-                <br>
-                $$$ LEVEL
-
-
-
-              </span>
-
+        <!-- Search Results injected here -->
+        <div class="section white">
+          <!-- Find Beer and Bar Hop Buttons -->
+          <div class = "lower-nav center-text mshow col m6 col s6">
+            <a>
+              <img class= "button-collapse" id="new-beerbutton" src="./assets/images/findbeer_v1.png" href="#" data-activates="slide-out">
+            </a>
+            <div class="right mshow">
+              <div id= "barhop-mobile-button">
+                <a class="waves-effect waves-light btn"  href="#modal1">Bar Hop!</a>
+              </div>
             </div>
+          </div>
+          <!-- End Beer And Bar Hop Buttons -->
+          <div  id="searchResults" class="row container">
 
-          </li>
+                <!-- Modal Structure -->
+            <div id="modal1" class="modal modal-fixed-footer">
+              <h3 id= "breweryName"></h3>
+              <h5 id= "phoneNumber"></h5>
+              <h4 id="isOpen">Open Now:
+                <span id="openNow"></span>
+              </h4>
+              <div id = "hoursOfOperation">
+                <table class="responsive-table" style="border: solid 1px #444">
+                  <thead>
+                    <tr>
+                      <th>Hours Of Operation<th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableHours">
 
+                  </tbody>
+                </table>
+              </div>
+              <img src= "" class = "imageStyle">
+              <div id="googleRating">
+                <p>Rating: <span id="rating"></span></p>
+              </div>
+              <div>
+                <p> Website: <span id="website"></span></p>
+                <div>
+              <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Got it!</a>
+              </div>
+            </div>
+            <!-- End Modal  -->
 
-        </ul>
-      </div> -->
+          </div>
+        </div>
+        <!-- End Search Results -->
+        <div class="parallax-container">
+            <div class="parallax">
+                <img src="./assets/images/bh-background_v4.png">
+            </div>
+        </div>
 
-    </div>
-    </div>
-
-
-  <div class="parallax-container">
-    <div class="parallax">
-      <img src="./assets/images/dribbble.png">
-    </div>
-    </div>
+        <!-- Begin Footer -->
         <footer class="page-footer">
           <div class="container">
             <div class="row">
@@ -167,17 +138,16 @@
               </div>
             </div>
           </div>
-  </div>
         </footer>
-        <!-- <script src="./assets/javascript/maps.js" charset="utf-8"></script> -->
+        <!-- End Footer -->
+
         <script src="./assets/javascript/beer.js"></script>
         <script src="./assets/javascript/app.js" charset="utf-8"></script>
-        <!-- <script src="./assets/javascript/firebase.js" charset="utf-8"></script> -->
         <script src="./assets/javascript/view.js" charset="utf-8"></script>
         <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jvk_PaOvdEptVVlbt_fM799pcwcAztM&libraries=places&callback=initMap"
           async defer
         >
         </script>
-</body>
+    </body>
 </html>
