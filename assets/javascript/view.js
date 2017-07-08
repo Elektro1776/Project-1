@@ -4,21 +4,20 @@ let googleCardCreator = function() {
   function createCard(googleDetails) {
     $.each(googleDetails, function(i, value) {
       // console.log(' WHAT IS OUR I AND VALUE', i, value);
-      let { name, formatted_phone_number,opening_hours, price_level, website, photos } = value;
+      let { name, formatted_phone_number,opening_hours, price_level, website, photos, rating } = value;
 
       var targetDiv = $('#searchResults');
       let allGoogleInfo = {
         "name": name,
         "formatted_phone_number": formatted_phone_number,
-        "opening_hours": opening_hours,
+        "opening_hours": JSON.stringify(opening_hours),
         "price_level": price_level,
         "website": website,
         "photos": photos,
+        "rating": rating,
       };
-      let stringifiedResult = JSON.stringify(allGoogleInfo);
       let containerDiv = $("<div>");
-
-      var card = 
+      var card =
           '<div class="card">' +
             '<div class="card-image">' +
               `<img src=${photos} class = "responsive-img imageStyle"/>` +
@@ -27,15 +26,12 @@ let googleCardCreator = function() {
                   '<iclass="material-icons">add</i>'+
                 '</a>' +
             '</div>'+
-          '</div>' +
-        
+          '</div>';
+
         containerDiv.addClass("col s12 m12 l6");
         containerDiv.html(card)
         containerDiv.data("info", allGoogleInfo);
 
-        // let dataAttr = $(card).children().children().children('.moreInfo').attr("info", {"fuck": "this"});
-        // $(card).data("data", value);
-        // console.log("What is the card data", card)
         targetDiv.append(containerDiv);
 
     });
@@ -75,20 +71,57 @@ $(document).ready(function() {
         searchParams[prop] = $(value).val();
 
       })
-      // for (var i = 0;)
       // pass the searchParams to firebase for the current user and store them for quick
       // search later
-      console.log(' WHAT ARE THE SEARCH PARAMS', searchParams);
       localStorage.setItem("searchParams", JSON.stringify(searchParams));
        window.location.replace('./materialize_results.html');
   });
+  function createHoursTable(hoursResults) {
+    console.log(' HOURS RESULTS', hoursResults);
+    $.each(hoursResults, function(value) {
 
-  $('#searchResults').on("click", "a", function(e) {
+    })
+    let html = `
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Hours Of Operation</th>
+          </tr>
+        </thead>`
+        return html
+  }
+  $('#searchResults').on("click", ".card a", function(e) {
     e.preventDefault();
     let el = $(this).siblings();
     let elParent = $(this).parent();
-    let parentEl = elParent.parent()
-    console.log("parsed data@@@@@", parentEl.parent().data('info'));
+    let parentEl = elParent.parent();
+    let breweryData = parentEl.parent().data('info');
+    let parsedHours = JSON.parse(breweryData.opening_hours);
+    let openNow;
+    if (parsedHours.open_now) {
+      openNow = 'yes';
+    } else {
+      openNow = 'no'
+    }
+    $('#modal1 thead tr').html('')
+    $.each(parsedHours.weekday_text, function(index,value) {
+      console.log(' WHAT ARE THE HOURS', value);
+      let tableData = `
+          <th>${value}</th>
+        `
+      $('#modal1 thead tr').append(tableData)
+    });
+    // let table = createHoursTable(parsedHours.weekday_text)
+    console.log(' WHAT IS THE BREWERY DATA?', breweryData, parsedHours);
+    $('#modal1 #breweryName').text(breweryData.name);
+    $('#modal1 #phoneNumber').text(breweryData.formatted_phone_number);
+    $('#modal1 #openNow').text(openNow);
+    $('#modal1 #rating').text(breweryData.rating);
+    $('#modal1 #website').text(breweryData.website);
+
+    // $('#modal1 #isOpen').append(table)
+    $('#modal1 .imageStyle').attr('src', breweryData.photos)
+    $('#modal1').modal('open');
   })
 
 });

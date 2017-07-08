@@ -114,6 +114,7 @@ let MAPS = (spec, mySecrets) => {
         let detail = {};
         let keys = Object.keys(details);
          keys.map((key) => {
+           console.log(' WHAT ARE THE KEYS?', key, details[key]);
           switch (key) {
             case 'name': {
               return detail["name"] = details[key];
@@ -132,6 +133,9 @@ let MAPS = (spec, mySecrets) => {
             }
             case 'photos': {
               return detail["photos"] = details[key][0].getUrl({'maxWidth': 300, 'maxHeight': 300});
+            }
+            case 'rating': {
+              return detail[key] = details[key];
             }
             default:
               return detail;
