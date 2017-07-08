@@ -56,17 +56,21 @@ $(document).ready(function() {
   function findBeer() {
       let searchBeer = BEER();
       initialMap = MAPS(searchParams);
-      let userLocation = JSON.parse(localStorage.getItem("latlng"));
-      initialMap.createDefaultMap(userLocation);
-      console.log(' WHAT IS OUR USER LOCATION?', userLocation);
-      createGoogleCard = googleCardCreator();
-     initialMap.geoCodeAddress(userLocation).then(function(response) {
-        console.log(' WHAT IS THE TEST?', response[0].geometry.location.lat());
-        return initialMap.findBreweries(response[0].geometry.location)
+
+      initialMap.getUserLocation().then(function(position) {
+        console.log(' DO WE HAVE POSITION', position);
+        let userLocation = position.location;
+        initialMap.createDefaultMap(userLocation);
+        console.log(' WHAT IS OUR USER LOCATION?', userLocation);
+        createGoogleCard = googleCardCreator();
+        initialMap.geoCodeAddress(userLocation).then(function(response) {
+          console.log(' WHAT IS THE TEST?', response[0].geometry.location.lat());
+          return initialMap.findBreweries(response[0].geometry.location)
         })
         .then(function(googleResults) {
           createGoogleCard.createCard(googleResults)
         })
+      })
 
 
   }
