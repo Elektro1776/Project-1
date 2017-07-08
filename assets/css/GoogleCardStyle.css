@@ -13,7 +13,7 @@
 
 }
 .modal-footer {
-  /*position: sticky!important;*/
+  position: static!important;
 }
 .modal.modal-fixed-footer .modal-footer {
   bottom: 44px!important;
