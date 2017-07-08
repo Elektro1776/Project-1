@@ -21,11 +21,14 @@ let googleCardCreator = function() {
           '<div class="card">' +
             '<div class="card-image">' +
               `<img src=${photos} class = "responsive-img imageStyle"/>` +
-                "<a href = '#modal1' class='moreInfo btn right'>"+
+                `<div><span class="card-title">${name}</span></div>` +
+
+            '</div>'+ 
+            "<div class= 'infoButton'>" + 
+                  "<a href = '#modal1' class='moreInfo btn right'>"+
                   '<iclass="material-icons">More Info</i>'+
                 '</a>' +
-                `<div><span class="card-title">${name}</span></div>` +
-            '</div>'+
+           "</div>" +
           '</div>';
 
         containerDiv.addClass(" col s12 m12 l6");
