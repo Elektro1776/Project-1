@@ -57,6 +57,8 @@ let MAPS = (spec, mySecrets) => {
         map.setZoom(15);
         findBreweries().then((response) => {
           console.log(' HELLOW RESPONSE', response);
+          let cardCreator = googleCardCreator()
+          cardCreator.createCard(response);
         })
       } else {
         // map.setZoom(15);

@@ -2,11 +2,13 @@ let searchParams = {}
 let googleCardCreator = function() {
   var that;
   function createCard(googleDetails) {
+    var targetDiv = $('#searchResults');
+
+    targetDiv.html('')
     $.each(googleDetails, function(i, value) {
       // console.log(' WHAT IS OUR I AND VALUE', i, value);
       let { name, formatted_phone_number,opening_hours, price_level, website, photos, rating } = value;
 
-      var targetDiv = $('#searchResults');
       let allGoogleInfo = {
         "name": name,
         "formatted_phone_number": formatted_phone_number,
@@ -23,8 +25,8 @@ let googleCardCreator = function() {
               `<img src=${photos} class = "responsive-img imageStyle"/>` +
                 `<div><span class="card-title">${name}</span></div>` +
 
-            '</div>'+ 
-            "<div class= 'infoButton'>" + 
+            '</div>'+
+            "<div class= 'infoButton'>" +
                   "<a href = '#modal1' class='moreInfo btn right'>"+
                   '<iclass="material-icons">More Info</i>'+
                 '</a>' +
