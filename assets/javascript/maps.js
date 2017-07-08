@@ -56,7 +56,6 @@ let MAPS = (spec, mySecrets) => {
         map.panTo(place.geometry.location);
         map.setZoom(15);
         findBreweries().then((response) => {
-          console.log(' HELLOW RESPONSE', response);
           let cardCreator = googleCardCreator()
           cardCreator.createCard(response);
         })
@@ -97,7 +96,6 @@ let MAPS = (spec, mySecrets) => {
   }
 
   function findBreweries(location) {
-    console.log(' WHAT IS THE LOCATION?', map.getBounds());
     let request = {
       // location: location,
       bounds: map.getBounds(),
@@ -129,7 +127,6 @@ let MAPS = (spec, mySecrets) => {
             let firstResultSet = results.slice(0,9);
 
             Promise.all(firstResultSet.map(findDetail)).then(function(details) {
-              console.log(' WHAT ARE THE DETAILS?', details);
               resolve(formatGoogleResults(details));
             })
           }else {
@@ -241,9 +238,7 @@ let MAPS = (spec, mySecrets) => {
        });
 
        google.maps.event.addListener(marker, 'click', function() {
-         console.log(' CLICK', marker);
          service.getDetails(place, function(result, status) {
-           console.log(' PLACEEEE CLICKED', result, status);
            if (status !== google.maps.places.PlacesServiceStatus.OK) {
              console.error(status);
              return;

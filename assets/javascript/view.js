@@ -66,15 +66,11 @@ $(document).ready(function() {
 
 
 let test = $('form');
-console.log(' WHAT THE HELL IS THIS?', test);
   // listen for form submit on our results page
   $('.side-nav form').on('submit', function(e) {
-    console.log(' HELELELELELELEELL', initialMap);
     e.preventDefault();
       let $inputs = $('#beerForm :input:not(:button)');
-      console.log(' DO WE GET INPUTS??', $inputs);
       $inputs.each(function(index,value) {
-        console.log('WHAT ARE THE VALUES,', $(value).val( ));
         var prop = $(value)[0].id;
         searchParams[prop] = $(value).val();
 
@@ -87,7 +83,6 @@ console.log(' WHAT THE HELL IS THIS?', test);
   });
 
   function createHoursTable(hoursResults) {
-    console.log(' HOURS RESULTS', hoursResults);
     $.each(hoursResults, function(value) {
 
     })
@@ -110,14 +105,12 @@ console.log(' WHAT THE HELL IS THIS?', test);
     }
     $('#modal1 thead tr').html('');
     $.each(parsedHours.weekday_text, function(index,value) {
-      console.log(' WHAT ARE THE HOURS', value);
       let tableData = `
           <th>${value}</th>
         `
       $('#modal1 thead tr').append(tableData)
     });
     // let table = createHoursTable(parsedHours.weekday_text)
-    console.log(' WHAT IS THE BREWERY DATA?', breweryData, parsedHours);
     $('#modal1 #breweryName').text(breweryData.name);
     $('#modal1 #phoneNumber').text(breweryData.formatted_phone_number);
     $('#modal1 #openNow').text(openNow);
@@ -138,5 +131,3 @@ console.log(' WHAT THE HELL IS THIS?', test);
   })
 
 });
-
-// moment(bday, ["DD/MM/YYYY"])

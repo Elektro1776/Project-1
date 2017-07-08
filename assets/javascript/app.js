@@ -63,7 +63,6 @@ $(document).ready(function() {
         initialMap.createDefaultMap(userLocation);
         createGoogleCard = googleCardCreator();
         initialMap.geoCodeAddress(userLocation).then(function(response) {
-          console.log(' WHAT IS THE TEST?', response[0].geometry.location.lat());
           return initialMap.findBreweries({lat: response[0].geometry.location.lat(), lng: response[0].geometry.location.lng()})
         })
         .then(function(googleResults) {
