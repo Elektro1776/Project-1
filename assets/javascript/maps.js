@@ -55,7 +55,6 @@ let MAPS = (spec, mySecrets) => {
         // map.fitBounds(place.geometry.viewport);
         map.panTo(place.geometry.location);
         map.setZoom(15);
-        console.log(' MOTHER FUCKING LAT LONG//////', latLong);
         findBreweries().then((response) => {
           console.log(' HELLOW RESPONSE', response);
         })
