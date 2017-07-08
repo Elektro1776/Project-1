@@ -98,6 +98,19 @@ z-index: 10;
     box-shadow: 3px 3px 3px #6b6b6b;
 }
 
+#barhop-button{
+    height: 50px;
+    width: 100px;
+    margin-top: 25px;
+    margin-left: 15px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: white;
+
+    box-shadow: 3px 3px 3px #6b6b6b;
+}
+
 .brand-logo {
     width:550px;
     max-width: 80%;
@@ -108,7 +121,7 @@ z-index: 10;
     margin-bottom: 50px;
     max-width: 100%;
  /*   background-color: #330000;*/
-    height: 115px; 
+    height: 100px; 
 
 
 }
@@ -240,6 +253,28 @@ form {
     max-height: 100%;
     width: 150px;
     height: 150px;
+    background-color: #996633;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+}
+
+#barhop-button-mobile{
+    max-width: 100%;
+    max-height: 100%;
+    width: 150px;
+    height: 150px;
+    background-color: #996633;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+}
+
+#lower-nav-mobile{
+    background-color: #996633;
+
+}
+
 }
 
 .bottom-parallax{
