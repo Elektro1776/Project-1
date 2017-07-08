@@ -28,7 +28,7 @@ let googleCardCreator = function() {
             '</div>'+
           '</div>';
 
-        containerDiv.addClass("col s12 m12 l6");
+        containerDiv.addClass(" col s12 m12 l6");
         containerDiv.html(card)
         containerDiv.data("info", allGoogleInfo);
 
@@ -60,22 +60,27 @@ $(document).ready(function() {
    });
 
 
-
-  $('form').submit(function(e) {
+let test = $('form');
+console.log(' WHAT THE HELL IS THIS?', test);
+  // listen for form submit on our results page
+  $('.side-nav form').on('submit', function(e) {
+    console.log(' HELELELELELELEELL', initialMap);
     e.preventDefault();
       let $inputs = $('#beerForm :input:not(:button)');
       console.log(' DO WE GET INPUTS??', $inputs);
       $inputs.each(function(index,value) {
-        console.log('WHAT ARE THE VALUES,', $(value)[0].id);
+        console.log('WHAT ARE THE VALUES,', $(value).val( ));
         var prop = $(value)[0].id;
         searchParams[prop] = $(value).val();
 
       })
+      // initialMap.geoCodeAddress(searchParams);
       // pass the searchParams to firebase for the current user and store them for quick
       // search later
       localStorage.setItem("searchParams", JSON.stringify(searchParams));
-       window.location.replace('./materialize_results.html');
+      //  window.location.replace('./materialize_results.html');
   });
+
   function createHoursTable(hoursResults) {
     console.log(' HOURS RESULTS', hoursResults);
     $.each(hoursResults, function(value) {
@@ -90,12 +95,7 @@ $(document).ready(function() {
         </thead>`
         return html
   }
-  $('#searchResults').on("click", ".card a", function(e) {
-    e.preventDefault();
-    let el = $(this).siblings();
-    let elParent = $(this).parent();
-    let parentEl = elParent.parent();
-    let breweryData = parentEl.parent().data('info');
+  function displayBreweryModal(breweryData) {
     let parsedHours = JSON.parse(breweryData.opening_hours);
     let openNow;
     if (parsedHours.open_now) {
@@ -103,7 +103,7 @@ $(document).ready(function() {
     } else {
       openNow = 'no'
     }
-    $('#modal1 thead tr').html('')
+    $('#modal1 thead tr').html('');
     $.each(parsedHours.weekday_text, function(index,value) {
       console.log(' WHAT ARE THE HOURS', value);
       let tableData = `
@@ -122,6 +122,14 @@ $(document).ready(function() {
     // $('#modal1 #isOpen').append(table)
     $('#modal1 .imageStyle').attr('src', breweryData.photos)
     $('#modal1').modal('open');
+  }
+  $('#searchResults').on("click", ".card a", function(e) {
+    e.preventDefault();
+    let el = $(this).siblings();
+    let elParent = $(this).parent();
+    let parentEl = elParent.parent();
+    let breweryData = parentEl.parent().data('info');
+    displayBreweryModal(breweryData);
   })
 
 });

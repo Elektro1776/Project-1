@@ -2,16 +2,15 @@
 let MAPS = (spec, mySecrets) => {
   let that, map, infowindow, service, geocoder;
    mySecrets = mySecrets || {};
+   var markers = [];
 
   function createDefaultMap(userLocation) {
     return geoCodeAddress(userLocation).then((response) => {
-
       let location = response[0].geometry.location;
-      console.log(' USER LOCATION', userLocation, location.lat(), location.lng());
       map = new google.maps.Map(document.getElementById('map'), {
         center: location,
         zoom: 14,
-        mapTypeId: 'roadmap'
+        // mapTypeId: 'roadmap'
       });
       map.panBy(0, -50)
       service = new google.maps.places.PlacesService(map);
@@ -23,9 +22,49 @@ let MAPS = (spec, mySecrets) => {
       infoWindow.setContent('You Are Here');
       infoWindow.open(map);
       map.setCenter(pos.location);
+      autoCompleteLocation()
       // addMarker(response[0]);
     })
   }
+  function autoCompleteLocation () {
+    var input = $('.side-nav form #autocomplete');
+    var autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */ (
+                $('#locationSearch')[0]), {
+              // types: ['(cities)'],
+              // componentRestrictions: countryRestrict
+            });
+    autocomplete.bindTo("bounds", map);
+    google.maps.event.addDomListener(window, 'load', autoCompleteLocation);
+
+    autocomplete.addListener('place_changed', function() {
+      infoWindow.close();
+      // marker.setVisible(false);
+      var place = autocomplete.getPlace();
+      console.log("We have the place!", place);
+      if (!place.geometry) {
+        console.log("error");
+      }
+      var latLong = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng()
+      };
+
+      if (place.geometry) {
+        // map.setCenter(place.geometry.location);
+        // map.fitBounds(place.geometry.viewport);
+        map.panTo(place.geometry.location);
+        map.setZoom(15);
+        console.log(' MOTHER FUCKING LAT LONG//////', latLong);
+        findBreweries().then((response) => {
+          console.log(' HELLOW RESPONSE', response);
+        })
+      } else {
+        // map.setZoom(15);
+        // myLocationMarker(place);
+      }
+    });
+    }
   function getUserLocation() {
     return new Promise(function(resolve, reject) {
       $.ajax({
@@ -57,16 +96,37 @@ let MAPS = (spec, mySecrets) => {
   }
 
   function findBreweries(location) {
+    console.log(' WHAT IS THE LOCATION?', location);
     let request = {
-      location: location,
-      radius: 3218.69,
-      keyword: ['bar' , 'brewery'],
+      // location: location,
+      bounds: map.getBounds(),
+      keyword: ['bar', 'brewery'],
     }
     return new Promise(function(resolve, reject) {
         service.nearbySearch(request, function(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
             // resolve(findDetail(results));
-            addMarkers(results);
+            for (var i = 0; i < results.length; i++) {
+              var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+              // var markerIcon = MARKER_PATH + markerLetter + '.png';
+              // Use marker animation to drop the icons incrementally on the map.
+              markers[i] = new google.maps.Marker({
+                position: results[i].geometry.location,
+                animation: google.maps.Animation.DROP,
+                icon: {
+                  url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
+                  anchor: new google.maps.Point(10, 10),
+                  scaledSize: new google.maps.Size(15, 17)
+                }
+              });
+              // If the user clicks a hotel marker, show the details of that hotel
+              // in an info window.
+              markers[i].placeResult = results[i];
+              // google.maps.event.addListener(markers[i], 'click', showInfoWindow);
+              setTimeout(dropMarker(i), i * 100);
+              // console.log(' WHAT ARE THE RESULTS[I]', results[i].);
+              // addResult(results[i], i);
+            }
             let firstResultSet = results.slice(0,9);
 
             Promise.all(firstResultSet.map(findDetail)).then(function(details) {
@@ -78,6 +138,11 @@ let MAPS = (spec, mySecrets) => {
           }
         })
     });
+  }
+  function dropMarker(i) {
+    return function() {
+      markers[i].setMap(map);
+    };
   }
   function findDetail(resultND, i) {
         return new Promise(function(resolve, reject) {
