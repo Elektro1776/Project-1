@@ -27,22 +27,18 @@ let MAPS = (spec, mySecrets) => {
     })
   }
   function getUserLocation() {
-    var lat;
-    var long;
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                          lat: position.coords.latitude,
-                          lng: position.coords.longitude
-                        };
-                localStorage.setItem("latlng", JSON.stringify(pos));
-              }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
-              });
-            } else {
-              // Browser doesn't support Geolocation
-              handleLocationError(false, infoWindow, map.getCenter());
-            }
+    return new Promise(function(resolve, reject) {
+      $.ajax({
+        url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyA6jvk_PaOvdEptVVlbt_fM799pcwcAztM',
+        method: 'POST',
+
+      }).done(function(position) {
+        resolve(position);
+      }).fail(function(err) {
+        console.log('HUSTON WE HAVE AN ERR WITH USER POSITION', err);
+        reject(err);
+      });
+    });
   }
 
   function geoCodeAddress(location) {
@@ -114,7 +110,7 @@ let MAPS = (spec, mySecrets) => {
         let detail = {};
         let keys = Object.keys(details);
          keys.map((key) => {
-           console.log(' WHAT ARE THE KEYS?', key, details[key]);
+          //  console.log(' WHAT ARE THE KEYS?', key, details[key]);
           switch (key) {
             case 'name': {
               return detail["name"] = details[key];
@@ -137,6 +133,22 @@ let MAPS = (spec, mySecrets) => {
             case 'rating': {
               return detail[key] = details[key];
             }
+            // case 'geometry': {
+            //   let orignLat = {
+            //     lat: details[key].location.lat(),
+            //     lng: details[key].location.lng(),
+            //   };
+            //   let destinationLng = {
+            //     lat:
+            //   }
+            //   console.log(' LOCATIONNNNNNNNNN', lat, lng);
+            //   detail["location"] = details[key].location;
+            //   return new Promise(function(resolve, reject) {
+            //     $.ajax({
+            //       url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${lat},${lng}&destinations=${}`
+            //     })
+            //   })
+            // }
             default:
               return detail;
           }
@@ -185,6 +197,5 @@ let MAPS = (spec, mySecrets) => {
   that.getUserLocation = getUserLocation;
   that.formatGoogleResults = formatGoogleResults;
   that.findBreweries = findBreweries;
-
   return that;
 }
